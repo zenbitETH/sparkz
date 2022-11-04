@@ -5,18 +5,31 @@ import {
   Popup,
   GeoJSON,
   CircleMarker,
+  useMap,
 } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
-import { LatLngTuple } from 'leaflet/'
+import type { LatLngTuple } from 'leaflet'
 
 import 'leaflet/dist/leaflet.css'
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css'
 import 'leaflet-defaulticon-compatibility'
+
+import { GestureHandling } from 'leaflet-gesture-handling'
+
 //import styles from '../../styles/Map.module.scss'
 //import styles from '../../styles/Map.module.scss'
 
 const Map = ({ position }: { position: LatLngTuple }) => {
-  console.log('Map')
+  const GestureHandlingSetter = () => {
+    /* eslint-disable */
+    const map = useMap() as any
+    map.gestureHandling.enable()
+    map.addHandler('gestureHandling', GestureHandling)
+    //setInit(false)
+    /* eslint-enable */
+    return null
+  }
+
   return (
     <MapContainer
       className='h-full	w-full'
@@ -24,6 +37,7 @@ const Map = ({ position }: { position: LatLngTuple }) => {
       zoom={13}
       scrollWheelZoom={false}
     >
+      <GestureHandlingSetter />
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
