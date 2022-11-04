@@ -32,6 +32,9 @@ const Home = () => {
 
   const [loc, setLoc] = React.useState<LatLngTuple | null>(null)
 
+  if (!loc) {
+    return <div>Loading...</div>
+  }
   return (
     <div className='h-screen'>
       {/* <h1 className='text-red-600'>Home</h1> */}

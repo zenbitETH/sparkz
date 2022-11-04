@@ -12,10 +12,11 @@ import { LatLngTuple } from 'leaflet/'
 import 'leaflet/dist/leaflet.css'
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css'
 import 'leaflet-defaulticon-compatibility'
-import styles from '../../styles/Map.module.scss'
+//import styles from '../../styles/Map.module.scss'
 //import styles from '../../styles/Map.module.scss'
 
 const Map = ({ position }: { position: LatLngTuple }) => {
+  console.log('Map')
   return (
     <MapContainer
       className='h-full	w-full'
