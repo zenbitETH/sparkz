@@ -1,7 +1,7 @@
 import { getCsrfToken, signIn, useSession } from 'next-auth/react'
 import { SiweMessage } from 'siwe'
 import { useAccount, useConnect, useNetwork, useSignMessage } from 'wagmi'
-import Layout from '../components/layout'
+//import Layout from '../components/layout'
 import { InjectedConnector } from 'wagmi/connectors/injected'
 import { useEffect, useState } from 'react'
 
@@ -48,20 +48,18 @@ function Siwe() {
   }, [isConnected])
 
   return (
-    <Layout>
-      <button
-        onClick={(e) => {
-          e.preventDefault()
-          if (!isConnected) {
-            connect()
-          } else {
-            handleLogin()
-          }
-        }}
-      >
-        Sign-in
-      </button>
-    </Layout>
+    <button
+      onClick={(e) => {
+        e.preventDefault()
+        if (!isConnected) {
+          connect()
+        } else {
+          handleLogin()
+        }
+      }}
+    >
+      Sign-in
+    </button>
   )
 }
 
@@ -73,6 +71,6 @@ export async function getServerSideProps(context: any) {
   }
 }
 
-Siwe.Layout = Layout
+//Siwe.Layout = Layout
 
 export default Siwe
