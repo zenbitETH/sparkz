@@ -1,6 +1,6 @@
 import { getCsrfToken, signIn, useSession } from 'next-auth/react'
 import { SiweMessage } from 'siwe'
-import { useAccount, useConnect, useNetwork, useSignMessage } from 'wagmi'
+import { useAccount, useConnect, useNetwork, useSignMessage, useEnsAvatar, useEnsName, useDisconnect } from 'wagmi'
 //import Layout from '../components/layout'
 import { InjectedConnector } from 'wagmi/connectors/injected'
 import { useEffect, useState } from 'react'
@@ -16,48 +16,44 @@ import logo from '../images/logo.png'
 import Image from 'next/image'
 import clsx from 'clsx'
 import { Button } from '../components/Button'
+import { XIcon } from '@heroicons/react/solid';
+import { useRouter } from 'next/router';
 
 function Siwe() {
   const { signMessageAsync } = useSignMessage()
   const { chain } = useNetwork()
   const { address, isConnected } = useAccount()
-  const { connect } = useConnect({
-    connector: new InjectedConnector(),
-  })
+  const router = useRouter();
+
   const { data: session, status } = useSession()
+  const { connect, connectors, error, isLoading, pendingConnector } = useConnect()
+  const { disconnect } = useDisconnect()
 
-  const handleLogin = async () => {
-    try {
-      const callbackUrl = '/protected'
-      const message = new SiweMessage({
-        domain: window.location.host,
-        address: address,
-        statement: 'Sign in with Ethereum to SparkZ.',
-        uri: window.location.origin,
-        version: '1',
-        chainId: chain?.id,
-        nonce: await getCsrfToken(),
-      })
-      const signature = await signMessageAsync({
-        message: message.prepareMessage(),
-      })
-      signIn('credentials', {
-        message: JSON.stringify(message),
-        redirect: false,
-        signature,
-        callbackUrl,
-      })
-    } catch (error) {
-      window.alert(error)
-    }
-  }
-
-  // useEffect(() => {
-  //   console.log(isConnected)
-  //   if (isConnected && !session) {
-  //     handleLogin()
+  // const handleLogin = async () => {
+  //   try {
+  //     const callbackUrl = '/protected'
+  //     const message = new SiweMessage({
+  //       domain: window.location.host,
+  //       address: address,
+  //       statement: 'Sign in with Ethereum to SparkZ.',
+  //       uri: window.location.origin,
+  //       version: '1',
+  //       chainId: chain?.id,
+  //       nonce: await getCsrfToken(),
+  //     })
+  //     const signature = await signMessageAsync({
+  //       message: message.prepareMessage(),
+  //     })
+  //     signIn('credentials', {
+  //       message: JSON.stringify(message),
+  //       redirect: false,
+  //       signature,
+  //       callbackUrl,
+  //     })
+  //   } catch (error) {
+  //     window.alert(error)
   //   }
-  // }, [isConnected])
+  // }
 
   return (
     <>
@@ -72,18 +68,28 @@ function Siwe() {
         <Container >
         <div className="flex flex-row justify-between">
               <span/>
-                                             {/*@ts-ignore */}
-              <Button type="submit" className="" onClick={(e) => {
-                  console.log('clicked')
-                  e.preventDefault()
-                  if (!isConnected) {
-                    connect()
-                  } else {
-                    handleLogin()
-                  }
-                }}>
-                  Connect Wallet
-              </Button>
+              {isConnected ? <button className="flex flex-row text-white rounded-full border border-gray-400 text-sm p-3">
+              <div>{shortHandAddress(address!)}</div>
+              <XIcon onClick={disconnect} className="h-3 w-3 ml-1 mt-1" />
+              </button>
+            
+               :  <Button 
+               type="submit" 
+               className="" 
+               key={connectors[0]!.id}
+               onClick={() => 
+                {
+                  connect({ connector: connectors[0] })
+                  router.replace('/')
+                }
+            
+              }
+               >
+                 Connect Wallet
+             </Button>
+              
+              }
+            
             </div>
           <div className="max-w-2xl">
      
@@ -122,6 +128,12 @@ export async function getServerSideProps(context: any) {
       csrfToken: await getCsrfToken(context),
     },
   }
+}
+function shortHandAddress (address: string) {
+  if (address?.length) {
+    return `${address.substring(0,5)}...${address.substring((address.length - 6), address.length)}`
+  } 
+return ''
 }
 
 function Photos() {

@@ -5,15 +5,26 @@ import { WagmiConfig, createClient, configureChains, chain } from 'wagmi'
 import { publicProvider } from 'wagmi/providers/public'
 import '../styles/globals.css'
 //import '../components/pop-up-wrapper.css'
+import { alchemyProvider } from 'wagmi/providers/alchemy'
+import { InjectedConnector } from 'wagmi/connectors/injected'
+import { MetaMaskConnector } from 'wagmi/connectors/metaMask'
+import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
+import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet'
 
-export const { chains, provider } = configureChains(
-  [chain.mainnet, chain.polygon, chain.optimism, chain.arbitrum],
-  [publicProvider()]
+export const { chains, provider, webSocketProvider } = configureChains(
+  [chain.mainnet, chain.polygon, chain.optimism, chain.arbitrum, chain.polygonMumbai],
+  [
+    alchemyProvider({ apiKey: '0R44QTGwHQUm1-tO21ZVR6PLxrLvpdMw' }),
+    publicProvider()]
 )
 
 const client = createClient({
   autoConnect: true,
+  connectors: [
+    new MetaMaskConnector({ chains }),
+  ],
   provider,
+  webSocketProvider
 })
 
 // Use of the <SessionProvider> is mandatory to allow components that call

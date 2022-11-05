@@ -13,7 +13,8 @@ import 'leaflet/dist/leaflet.css'
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css'
 import 'leaflet-defaulticon-compatibility'
 import { useRef, useState } from 'react'
-
+import { useAccount, useConnect, useNetwork, useSignMessage, useEnsAvatar, useEnsName, useDisconnect } from 'wagmi'
+import { useRouter } from 'next/router';
 import { GestureHandling } from 'leaflet-gesture-handling'
 
 import Modal from './Modal'
@@ -21,6 +22,7 @@ import Modal from './Modal'
 //import styles from '../../styles/Map.module.scss'
 //import styles from '../../styles/Map.module.scss'
 import PlaceMenu from './PlaceMenu'
+import { XIcon } from '@heroicons/react/solid';
 
 import locs from '../../locations.json' assert { type: 'json' }
 var greenIcon = new L.Icon({
@@ -44,6 +46,9 @@ var greenIcon = new L.Icon({
 // }
 
 const Map = ({ position }: { position: LatLngTuple }) => {
+  const router = useRouter();
+  const { address, isConnected } = useAccount()
+  const { disconnect } = useDisconnect()
   const GestureHandlingSetter = () => {
     /* eslint-disable */
     const map = useMap() as any
@@ -79,7 +84,7 @@ const Map = ({ position }: { position: LatLngTuple }) => {
   return (
     <div>
       <MapContainer
-        className='absolute	z-10 h-full w-full'
+        className='fixed h-full w-full'
         center={position}
         zoom={19}
         scrollWheelZoom={false}
@@ -149,8 +154,26 @@ const Map = ({ position }: { position: LatLngTuple }) => {
       </Marker> */}
       </MapContainer>
       <Modal handleMarker={onClickShowMarker} />
+      <button 
+        className="fixed flex flex-row w-30 top-2 right-2 text-white rounded-full border border-gray-400 text-sm p-3 text-black z-100"
+        onClick={ () => {
+          disconnect()
+          router.replace('/home')
+        }}
+        >
+          
+        <div>{shortHandAddress(address!)}</div>
+        <XIcon  className="h-3 w-3 ml-1 mt-1 z-50 h-20" />
+      </button>
     </div>
   )
+}
+
+function shortHandAddress (address: string) {
+  if (address?.length) {
+    return `${address.substring(0,5)}...${address.substring((address.length - 6), address.length)}`
+  }
+return ''
 }
 
 export default Map
