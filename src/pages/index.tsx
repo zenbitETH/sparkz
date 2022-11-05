@@ -5,6 +5,7 @@ import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import type { LatLgTuple, LatLngTuple } from 'leaflet'
 import React, { useEffect } from 'react'
+import Loading from '../components/Loading'
 
 const Home = () => {
   const MapWithNoSSR = dynamic(() => import('../components/Map'), {
@@ -33,7 +34,7 @@ const Home = () => {
   const [loc, setLoc] = React.useState<LatLngTuple | null>(null)
 
   if (!loc) {
-    return <div>Loading...</div>
+    return <Loading />
   }
   return (
     <div className='h-screen'>
