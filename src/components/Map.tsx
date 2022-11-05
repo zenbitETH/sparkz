@@ -9,7 +9,7 @@ import {
 } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import type { LatLngTuple } from 'leaflet'
-
+import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css'
 import 'leaflet-defaulticon-compatibility'
@@ -18,6 +18,18 @@ import { GestureHandling } from 'leaflet-gesture-handling'
 
 //import styles from '../../styles/Map.module.scss'
 //import styles from '../../styles/Map.module.scss'
+
+import locs from '../../locations.json' assert { type: 'json' }
+var greenIcon = new L.Icon({
+  iconUrl:
+    'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+  shadowUrl:
+    'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
+})
 
 const Map = ({ position }: { position: LatLngTuple }) => {
   const GestureHandlingSetter = () => {
@@ -43,11 +55,30 @@ const Map = ({ position }: { position: LatLngTuple }) => {
         url='http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}'
         subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
       />
-      <Marker position={position}>
+      <Marker position={position} icon={greenIcon}>
+        <Popup>Users Current Location</Popup>
+      </Marker>
+      {locs.map((loc) => {
+        const position = [loc.latitude, loc.longitude] as LatLngTuple
+        return (
+          <Marker
+            position={position}
+            key={loc.name}
+            eventHandlers={{
+              click: (e) => {
+                console.log(e)
+              },
+            }}
+          >
+            <Popup>{loc.name}</Popup>
+          </Marker>
+        )
+      })}
+      {/* <Marker position={position}>
         <Popup>
           A pretty CSS3 popup. <br /> Easily customizable.
         </Popup>
-      </Marker>
+      </Marker> */}
     </MapContainer>
   )
 }
