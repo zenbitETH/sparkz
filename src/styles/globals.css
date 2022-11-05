@@ -3,9 +3,17 @@
 @tailwind utilities;
 
 .userLocPopUp .leaflet-popup-content-wrapper {
-  background-color: yellow !important;
+  background-color: #8f4ee1 !important;
 }
 
 .userLocPopUp .leaflet-popup-tip {
-  background-color: yellow !important;
+  background-color: #8f4ee1 !important;
+}
+
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  width: 200px !important;
+  background-color: #8f4ee1 !important;
+  display: flex !important;
+  justify-content: center !important;
 }

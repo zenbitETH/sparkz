@@ -106,7 +106,9 @@ const Map = ({ position }: { position: LatLngTuple }) => {
                 },
               }}
             >
-              <Popup>{loc.name}</Popup>
+              <Popup>
+                <PlaceMenu name={loc.name} />
+              </Popup>
             </Marker>
           )
         })}
