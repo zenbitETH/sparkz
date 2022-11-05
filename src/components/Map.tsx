@@ -64,9 +64,15 @@ const Map = ({ position }: { position: LatLngTuple }) => {
     // }
     // map.flyTo(MARKER_POSITION, 13)
     const marker = markerRef.current
-    if (marker) {
-      marker.openPopup()
-    }
+    // if (marker) {
+    //   for (const key in marker) {
+    //     console.log(key)
+    //     console.log(marker[key])
+    //     or
+    //     marker[key].valueOf()
+    //   }
+    //console.log(marker.isPopupOpen())
+    marker.togglePopup()
   }
 
   return (
