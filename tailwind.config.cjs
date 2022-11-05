@@ -6,6 +6,10 @@ module.exports = {
       fontFamily: {
 				exo: ['Exo'],
 			},
+      plugins: [
+        require('@tailwindcss/forms'),
+        // ...
+      ],
     },
   },
   plugins: [],
