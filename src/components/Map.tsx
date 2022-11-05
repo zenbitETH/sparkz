@@ -16,6 +16,8 @@ import 'leaflet-defaulticon-compatibility'
 
 import { GestureHandling } from 'leaflet-gesture-handling'
 
+import Modal from './Modal'
+
 //import styles from '../../styles/Map.module.scss'
 //import styles from '../../styles/Map.module.scss'
 
@@ -43,43 +45,46 @@ const Map = ({ position }: { position: LatLngTuple }) => {
   }
 
   return (
-    <MapContainer
-      className='h-full	w-full'
-      center={position}
-      zoom={13}
-      scrollWheelZoom={false}
-    >
-      <GestureHandlingSetter />
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url='http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}'
-        subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
-      />
-      <Marker position={position} icon={greenIcon}>
-        <Popup>Users Current Location</Popup>
-      </Marker>
-      {locs.map((loc) => {
-        const position = [loc.latitude, loc.longitude] as LatLngTuple
-        return (
-          <Marker
-            position={position}
-            key={loc.name}
-            eventHandlers={{
-              click: (e) => {
-                console.log(e)
-              },
-            }}
-          >
-            <Popup>{loc.name}</Popup>
-          </Marker>
-        )
-      })}
-      {/* <Marker position={position}>
+    <div>
+      <MapContainer
+        className='absolute	z-10 h-full w-full'
+        center={position}
+        zoom={13}
+        scrollWheelZoom={false}
+      >
+        <GestureHandlingSetter />
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url='http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}'
+          subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
+        />
+        <Marker position={position} icon={greenIcon}>
+          <Popup>Users Current Location</Popup>
+        </Marker>
+        {locs.map((loc) => {
+          const position = [loc.latitude, loc.longitude] as LatLngTuple
+          return (
+            <Marker
+              position={position}
+              key={loc.name}
+              eventHandlers={{
+                click: (e) => {
+                  console.log(e)
+                },
+              }}
+            >
+              <Popup>{loc.name}</Popup>
+            </Marker>
+          )
+        })}
+        {/* <Marker position={position}>
         <Popup>
           A pretty CSS3 popup. <br /> Easily customizable.
         </Popup>
       </Marker> */}
-    </MapContainer>
+      </MapContainer>
+      <Modal />
+    </div>
   )
 }
 
