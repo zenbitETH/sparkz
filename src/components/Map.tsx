@@ -154,17 +154,17 @@ const Map = ({ position }: { position: LatLngTuple }) => {
       </Marker> */}
       </MapContainer>
       <Modal handleMarker={onClickShowMarker} />
-      <button 
-        className="fixed flex flex-row w-30 top-2 right-2 text-white rounded-full border border-gray-400 text-sm p-3 text-black z-100"
+      {address?.length && <button 
+        className="fixed flex flex-row bg-purple-400 h-12 top-2 right-2 text-white rounded-full border border-gray-400 text-xs p-4 text-center align-center justify-center"
         onClick={ () => {
           disconnect()
           router.replace('/home')
         }}
         >
           
-        <div>{shortHandAddress(address!)}</div>
-        <XIcon  className="h-3 w-3 ml-1 mt-1 z-50 h-20" />
-      </button>
+        <div >{shortHandAddress(address!)}</div>
+        <XIcon  className="h-3 w-3 ml-1 my-auto" />
+      </button>}
     </div>
   )
 }
