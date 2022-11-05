@@ -13,6 +13,7 @@ import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css'
 import 'leaflet-defaulticon-compatibility'
+import { useRef } from 'react'
 
 import { GestureHandling } from 'leaflet-gesture-handling'
 
@@ -54,6 +55,20 @@ const Map = ({ position }: { position: LatLngTuple }) => {
     return null
   }
 
+  const markerRef = useRef(null)
+
+  const onClickShowMarker = () => {
+    // const map = mapRef.current
+    // if (!map) {
+    //   return
+    // }
+    // map.flyTo(MARKER_POSITION, 13)
+    const marker = markerRef.current
+    if (marker) {
+      marker.openPopup()
+    }
+  }
+
   return (
     <div>
       <MapContainer
@@ -68,7 +83,7 @@ const Map = ({ position }: { position: LatLngTuple }) => {
           url='http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}'
           subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
         />
-        <Marker position={position} icon={greenIcon}>
+        <Marker position={position} icon={greenIcon} ref={markerRef}>
           <Popup className='userLocPopUp'>
             <PlaceMenu />
           </Popup>
@@ -95,7 +110,7 @@ const Map = ({ position }: { position: LatLngTuple }) => {
         </Popup>
       </Marker> */}
       </MapContainer>
-      <Modal />
+      <Modal handleMarker={onClickShowMarker} />
     </div>
   )
 }
