@@ -20,6 +20,7 @@ import Modal from './Modal'
 
 //import styles from '../../styles/Map.module.scss'
 //import styles from '../../styles/Map.module.scss'
+import PlaceMenu from './PlaceMenu'
 
 import locs from '../../locations.json' assert { type: 'json' }
 var greenIcon = new L.Icon({
@@ -32,6 +33,15 @@ var greenIcon = new L.Icon({
   popupAnchor: [1, -34],
   shadowSize: [41, 41],
 })
+
+const InternalPop = () => {
+  return (
+    <div>
+      <div>hello</div>
+      <button>click me</button>
+    </div>
+  )
+}
 
 const Map = ({ position }: { position: LatLngTuple }) => {
   const GestureHandlingSetter = () => {
@@ -59,7 +69,10 @@ const Map = ({ position }: { position: LatLngTuple }) => {
           subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
         />
         <Marker position={position} icon={greenIcon}>
-          <Popup>Users Current Location</Popup>
+          <Popup>
+            <InternalPop />
+            <button onClick={() => console.log('hi')}>hello</button>
+          </Popup>
         </Marker>
         {locs.map((loc) => {
           const position = [loc.latitude, loc.longitude] as LatLngTuple
