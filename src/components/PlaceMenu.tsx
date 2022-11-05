@@ -1,23 +1,48 @@
+import { useMap } from 'react-leaflet'
+
 interface Props {
   name: string
+  setZoom: (z: number) => void
 }
-const PlaceMenu = ({ name }: Props) => {
+const PlaceMenu = ({ name, setZoom }: Props) => {
+  const map = useMap()
+  console.log('map', map)
+  const handleButtonClick = () => {
+    console.log('handle zoom')
+    //setZoom(5)
+    map.setView([37.785910776551354, -122.44279861450197], 13)
+    //console.log(map.getCenter())
+  }
   return (
-    <div className='w-1000 capitalize text-white grid gap-5 font-exo'>
+    <div className='w-1000 grid gap-5 font-exo capitalize text-white'>
       {console.log('name', name)}
-      <div className="text-xl text-center">{name}</div>
+      <div className='text-center text-xl'>{name}</div>
       {/* Buttons Row */}
-      <div className="grid grid-cols-3 gap-5 w-full text-center">
-        <button className='border w-full rounded-xl lg:text-lg px-5 py-3'>Ride</button>
-        <button className='border w-full rounded-xl lg:text-lg px-5 py-3'>Move</button>
-        <button className='border w-full rounded-xl lg:text-lg px-5 py-3'>Attack</button>
+      <div className='grid w-full grid-cols-3 gap-5 text-center'>
+        <button
+          onClick={handleButtonClick}
+          className='w-full rounded-xl border px-5 py-3 lg:text-lg'
+        >
+          Ride
+        </button>
+        <button
+          onClick={handleButtonClick}
+          className='w-full rounded-xl border px-5 py-3 lg:text-lg'
+        >
+          Move
+        </button>
+        <button
+          onClick={handleButtonClick}
+          className='w-full rounded-xl border px-5 py-3 lg:text-lg'
+        >
+          Attack
+        </button>
       </div>
-      <div className="grid grid-cols-2 text-center text-lg"> 
+      <div className='grid grid-cols-2 text-center text-lg'>
         <div className=' '> 1245 ✨</div>
         <div className=' '> 123 🌑</div>
-        
       </div>
-      <div className="text-center text-lg">owner: 0x1345...abc</div>
+      <div className='text-center text-lg'>owner: 0x1345...abc</div>
     </div>
   )
 }
