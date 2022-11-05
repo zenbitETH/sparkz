@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,100;0,300;0,400;0,700;1,100;1,300;1,400;1,700&display=swap');
 
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -15,8 +14,10 @@
 
 .leaflet-popup-content-wrapper,
 .leaflet-popup-tip {
-  width: 200px !important;
   background-color: #8f4ee1 !important;
   display: flex !important;
   justify-content: center !important;
+}
+.leaflet-popup-content-wrapper {
+  width: 200px !important;
 }
