@@ -4,6 +4,7 @@ import type { AppProps } from 'next/app'
 import { WagmiConfig, createClient, configureChains, chain } from 'wagmi'
 import { publicProvider } from 'wagmi/providers/public'
 import '../styles/globals.css'
+import '../components/pop-up-wrapper.css'
 
 export const { chains, provider } = configureChains(
   [chain.mainnet, chain.polygon, chain.optimism, chain.arbitrum],

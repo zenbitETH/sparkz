@@ -34,14 +34,14 @@ var greenIcon = new L.Icon({
   shadowSize: [41, 41],
 })
 
-const InternalPop = () => {
-  return (
-    <div>
-      <div>hello</div>
-      <button>click me</button>
-    </div>
-  )
-}
+// const InternalPop = () => {
+//   return (
+//     <div>
+//       <div>hello</div>
+//       <button>click me</button>
+//     </div>
+//   )
+// }
 
 const Map = ({ position }: { position: LatLngTuple }) => {
   const GestureHandlingSetter = () => {
@@ -69,9 +69,8 @@ const Map = ({ position }: { position: LatLngTuple }) => {
           subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
         />
         <Marker position={position} icon={greenIcon}>
-          <Popup>
-            <InternalPop />
-            <button onClick={() => console.log('hi')}>hello</button>
+          <Popup className='userLocPopUp'>
+            <PlaceMenu />
           </Popup>
         </Marker>
         {locs.map((loc) => {
