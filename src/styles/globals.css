@@ -21,3 +21,26 @@
 .leaflet-popup-content-wrapper {
   width: 350px !important;
 }
+
+.card0 {
+  @apply
+  mx-5  py-5 
+  bg-gray-600
+  rounded-xl
+  grid grid-rows-6 
+  my-20 xl:my-0 h-[fit] xl:h-[80vh]
+  xl:grid-rows-1
+  grid-cols-12
+}
+
+.formInput {
+  @apply 
+  placeholder:italic px-6 py-3  w-full mx-auto rounded-2xl bg-white
+}
+
+.formBT {
+  @apply 
+  bg-purple-500 hover:bg-purple-100
+
+  cursor-pointer w-1/4 mx-auto py-3 text-xl rounded-3xl
+}
