@@ -11,6 +11,9 @@
 .userLocPopUp .leaflet-popup-tip {
   background-color: #8f4ee1 !important;
 }
+.userLocMarker .leaflet-marker-icon {
+  border: none !important;
+}
 
 .leaflet-popup-content-wrapper,
 .leaflet-popup-tip {
@@ -21,26 +24,27 @@
 .leaflet-popup-content-wrapper {
   width: 350px !important;
 }
+.leaflet-marker-icon {
+  border-radius: 50% !important;
+  border: #8f4ee1 3px solid;
+}
 
 .card0 {
-  @apply
-  mx-5  py-5 
-  bg-gray-600
-  rounded-xl
-  grid grid-rows-6 
-  my-20 xl:my-0 h-[fit] xl:h-[80vh]
-  xl:grid-rows-1
-  grid-cols-12
+  @apply mx-5  my-20 
+  grid
+  h-[fit]
+  grid-cols-12 grid-rows-6 
+  rounded-xl bg-gray-600 py-5 xl:my-0
+  xl:h-[80vh]
+  xl:grid-rows-1;
 }
 
 .formInput {
-  @apply 
-  placeholder:italic px-6 py-3  w-full mx-auto rounded-2xl bg-white
+  @apply mx-auto w-full rounded-2xl  bg-white px-6 py-3 placeholder:italic;
 }
 
 .formBT {
-  @apply 
-  bg-purple-500 hover:bg-purple-100
+  @apply mx-auto w-1/4
 
-  cursor-pointer w-1/4 mx-auto py-3 text-xl rounded-3xl
+  cursor-pointer rounded-3xl bg-purple-500 py-3 text-xl hover:bg-purple-100;
 }

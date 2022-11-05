@@ -1,10 +1,9 @@
 import {
   MapContainer,
   TileLayer,
-  Marker,
   Popup,
   GeoJSON,
-  CircleMarker,
+  Marker,
   useMap,
 } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
@@ -75,6 +74,8 @@ const Map = ({ position }: { position: LatLngTuple }) => {
     marker.togglePopup()
   }
 
+  console.log('position', position)
+
   return (
     <div>
       <MapContainer
@@ -89,15 +90,44 @@ const Map = ({ position }: { position: LatLngTuple }) => {
           url='http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}'
           subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
         />
-        <Marker position={position} icon={greenIcon} ref={markerRef}>
-          <Popup className='userLocPopUp'>
-            <PlaceMenu />
-          </Popup>
-        </Marker>
+        <div className='userLocMarker'>
+          <Marker position={position} icon={greenIcon} ref={markerRef}>
+            <Popup className='userLocPopUp'>
+              <PlaceMenu />
+            </Popup>
+          </Marker>
+        </div>
         {locs.map((loc) => {
-          const position = [loc.latitude, loc.longitude] as LatLngTuple
+          const position = [loc.lat, loc.lon] as LatLngTuple
+          const side = 50
+          const icon = new L.Icon({
+            iconUrl: loc.img,
+            shadowUrl:
+              'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [side, side],
+            iconAnchor: [side / 2, side / 2],
+            popupAnchor: [0, -side / 2],
+            shadowSize: [41, 41],
+          })
+          // const icon = new L.Icon({
+          //   iconUrl:
+          //     'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+          //   shadowUrl:
+          //     'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+          //   iconAnchor: [loc.lat, loc.lon],
+          //   popupAnchor: [loc.lat, loc.lon],
+          //   shadowUrl: null,
+          //   shadowSize: null,
+          //   shadowAnchor: null,
+          //   iconSize: new L.Point(60, 60),
+          //   className: 'leaflet-div-icon',
+          //   onclick: () => {
+          //     console.log('clicked')
+          //   },
+          // })
           return (
             <Marker
+              icon={icon}
               position={position}
               key={loc.name}
               eventHandlers={{

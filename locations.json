@@ -1,110 +1,146 @@
 [
   {
-    "tokenId": 1,
     "name": "Palace of fine Arts",
-    "latitude": 37.80295,
-    "longitude": -122.44844
+    "type": "⭐",
+    "city": "San Francisco",
+    "lat": 37.80295,
+    "lon": -122.44844,
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Palace_of_Fine_Arts_%2816794p%29.jpg/1199px-Palace_of_Fine_Arts_%2816794p%29.jpg"
   },
   {
-    "tokenId": 2,
-    "name": "Golden Gate View Point",
-    "latitude": 37.8082,
-    "longitude": -122.47502
+    "name": "Golden Gate View Point (south)",
+    "type": "⭐",
+    "city": "San Francisco",
+    "lat": 37.8082,
+    "lon": -122.47502,
+    "img": "https://lh5.googleusercontent.com/p/AF1QipPRbNzttaZeGreM696DV44k4mO6gSqBOAu22dPB=w408-h306-k-no"
   },
   {
-    "tokenId": 3,
-    "name": "Lime Point",
-    "latitude": 37.82603,
-    "longitude": -122.47865
+    "name": "Golden Gate Lime Point (north)",
+    "type": "⭐",
+    "city": "San Francisco",
+    "lat": 37.82603,
+    "lon": -122.47865,
+    "img": "https://lh5.googleusercontent.com/p/AF1QipPFxzw4EIBNtTA_SuSNGlTZ3Izvc9n7DbraBgDi=w408-h271-k-no"
   },
   {
-    "tokenId": 4,
     "name": "Crissy Field",
-    "latitude": 37.80389,
-    "longitude": -122.46508
+    "type": "⛲",
+    "city": "San Francisco",
+    "lat": 37.80389,
+    "lon": -122.46508,
+    "img": "https://lh5.googleusercontent.com/p/AF1QipOU9wU1C0H-EXPru2il32xoXV2695Hoc_ghsDq2=w408-h300-k-no"
   },
   {
-    "tokenId": 5,
     "name": "Golden Gate Park",
-    "latitude": 37.76823,
-    "longitude": -122.48568
+    "type": "⛲",
+    "city": "San Francisco",
+    "lat": 37.76823,
+    "lon": -122.48568,
+    "img": "https://lh6.googleusercontent.com/proxy/Re_uJganG3pBk9D1SDgNoBUSZxRfsvy8OftjqwO5RWQHyy1Zv0E9fATdxXdqr158SSlyY8zEnpyn7_R8cesEpFFRVwRbgbMnfMmiGaR9bOEFWpz62sQR7tF9jewXBcdYydS3hL6kKOd7J_e290lkiG-Kl2Q0rg=w408-h272-k-no"
   },
   {
-    "tokenId": 6,
     "name": "Buena Vista Park",
-    "latitude": 37.76863,
-    "longitude": -122.44169
+    "type": "⛲",
+    "city": "San Francisco",
+    "lat": 37.76863,
+    "lon": -122.44169,
+    "img": "https://lh5.googleusercontent.com/p/AF1QipNQJbzzAEm6UMQz6kRHEOyKNMoSIF1qpnV-pPC_=w408-h306-k-no"
   },
   {
-    "tokenId": 7,
     "name": "Chase Center",
-    "latitude": 37.7681,
-    "longitude": -122.38815
+    "type": "🏟️",
+    "city": "San Francisco",
+    "lat": 37.7681,
+    "lon": -122.38815,
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Chase_Center.jpg/375px-Chase_Center.jpg"
   },
   {
-    "tokenId": 8,
     "name": "Bill Graham Civic Center",
-    "latitude": 37.77811,
-    "longitude": -122.41731
+    "type": "🗳️",
+    "city": "San Francisco",
+    "lat": 37.77811,
+    "lon": -122.41731,
+    "img": "https://lh5.googleusercontent.com/p/AF1QipPa_6n2NfmCuxkWrppvfl2yM7fvPkrg4N2ZtyTd=w408-h272-k-no"
   },
   {
-    "tokenId": 9,
     "name": "SF MoMa",
-    "latitude": 37.78572,
-    "longitude": -122.40108
+    "type": "🎭",
+    "city": "San Francisco",
+    "lat": 37.78572,
+    "lon": -122.40108,
+    "img": "https://lh5.googleusercontent.com/p/AF1QipOveLy55yE4o-vxu0qRoohgLsmRFCZ90uhvRW_o=w408-h305-k-no"
   },
   {
-    "tokenId": 10,
     "name": "Ocean Beach",
-    "latitude": 37.75986,
-    "longitude": -122.51099
+    "type": "🏖️",
+    "city": "San Francisco",
+    "lat": 37.75986,
+    "lon": -122.51099,
+    "img": "https://lh5.googleusercontent.com/p/AF1QipNjOTImzw8P-Uhizsm7lbZ0KUW4sqIhha1qN6MB=w408-h306-k-no"
   },
   {
-    "tokenId": 11,
     "name": "Baker Beach",
-    "latitude": 37.79381,
-    "longitude": -122.48357
+    "type": "🏖️",
+    "city": "San Francisco",
+    "lat": 37.79381,
+    "lon": -122.48357,
+    "img": "https://lh5.googleusercontent.com/p/AF1QipNpg6jSUPld3LB7sa0qmNgcS0d0ltswJ6AGsuFz=w408-h306-k-no"
   },
   {
-    "tokenId": 12,
     "name": "Salesforce Tower",
-    "latitude": 37.78975,
-    "longitude": -122.3972
+    "type": "⭐",
+    "city": "San Francisco",
+    "lat": 37.78975,
+    "lon": -122.3972,
+    "img": "https://lh5.googleusercontent.com/p/AF1QipOdnD9XYIrz5OVopv9JbHvWtqyRv7krvh7jW8Jo=w408-h541-k-no"
   },
   {
-    "tokenId": 13,
     "name": "Oracle Park",
-    "latitude": 37.77858,
-    "longitude": -122.38957
+    "type": "🏟️",
+    "city": "San Francisco",
+    "lat": 37.77858,
+    "lon": -122.38957,
+    "img": "https://lh5.googleusercontent.com/p/AF1QipO0GrIXBhXYgywEz1YyX5NwHT2gYtrQ4vRKQAah=w408-h306-k-no"
   },
   {
-    "tokenId": 14,
     "name": "Ferry Building",
-    "latitude": 37.7954,
-    "longitude": -122.39363
+    "type": "⭐",
+    "city": "San Francisco",
+    "lat": 37.7954,
+    "lon": -122.39363,
+    "img": "https://lh5.googleusercontent.com/p/AF1QipMc7x2UpswRciw7aEQrL1_XL4xdFKEWoC9cU_WX=w408-h306-k-no"
   },
   {
-    "tokenId": 15,
     "name": "Dolores Park",
-    "latitude": 37.75986,
-    "longitude": -122.42718
+    "type": "⛲",
+    "city": "San Francisco",
+    "lat": 37.75986,
+    "lon": -122.42718,
+    "img": "https://lh5.googleusercontent.com/p/AF1QipNxkllLVnUQNOn4ONyMo50DP7D0hHj74e68hT2L=w408-h306-k-no"
   },
   {
-    "tokenId": 16,
     "name": "SF Zoo",
-    "latitude": 37.73328,
-    "longitude": -122.50528
+    "type": "⭐",
+    "city": "San Francisco",
+    "lat": 37.73328,
+    "lon": -122.50528,
+    "img": "https://lh5.googleusercontent.com/p/AF1QipNKoAwsLxDSpTqaDH9kyy0PK_Ein1Ss97EM1DHD=w408-h544-k-no"
   },
   {
-    "tokenId": 17,
     "name": "SF Symphony",
-    "latitude": 37.77764,
-    "longitude": -122.42053
+    "type": "⭐",
+    "city": "San Francisco",
+    "lat": 37.77764,
+    "lon": -122.42053,
+    "img": "https://www.sftourismtips.com/images/sf-symphony-louise-m-davies.jpg"
   },
   {
-    "tokenId": 18,
     "name": "Fisherman's Warf",
-    "latitude": 37.80875,
-    "longitude": -122.41251
+    "type": "⭐",
+    "city": "San Francisco",
+    "lat": 37.80875,
+    "lon": -122.41251,
+    "img": "https://lh6.googleusercontent.com/proxy/G8rkGLTT3c8NfX68fujWAcsXw4_JnR43slZSR5giDkjXEcQh6rK31BDtOBPy1sJERgvrSsyr56PvImfSXj1nhcE-ynYHiAJN8r5NMePgv0IzUE5NMY27jlvzK922aF3a2L422VugNLmrkoqqvH0CVfpzlvSm7n4=w408-h272-k-no"
   }
 ]
