@@ -13,7 +13,7 @@ const Home = () => {
   })
 
   return (
-    <div className='h-screen'>
+    <div className='h-screen '>
       {/* <h1 className='text-red-600'>Home</h1> */}
       <div className='absolute h-full w-full bg-gray-600'>
         <MapWithNoSSR />
