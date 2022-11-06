@@ -107,7 +107,7 @@ export default function addPlace() {
                             <input id="dropzone-file" type="file"  onChange={onChange} className="hidden" />
                             {
                               fileUrl && (
-                                <div className="flex flex-row">
+                                <div className="flex flex-row -mt-40">
                                   <img src={fileUrl} width="300px" />
                                   <XIcon onClick={deleteImage}  className="h-10 w-10 text-white" />
                                 </div>
