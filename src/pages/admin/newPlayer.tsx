@@ -1,11 +1,12 @@
 import { WorldIDWidget } from '@worldcoin/id'
 import { useState, useEffect } from 'react';
-import { usePrepareContractWrite } from 'wagmi';
+import { usePrepareContractWrite, useContractWrite } from 'wagmi';
 import sparkZAbi from '../../constants/sparkZ.json'
 
 export default function newPlayer() {
     const [inputs, setInputs] = useState<Record<string,any>>({});
-
+    const [args, setArgs] = useState<any>({
+    })
     const handleChange = (event: any) => {
       const name = event.target.name;
       const value = event.target.value;
@@ -20,11 +21,22 @@ export default function newPlayer() {
     const { config } = usePrepareContractWrite({
       address: '0xd66a0156935684bd2b1Cb6a2aBE9c6B1c26b94CA',
       abi: sparkZAbi.abi,
-      functionName: 'addLocation',
+      functionName: 'registerUser',
       args,
       chainId: 80001,
     });
 
+    useEffect(() => {
+      const mintFunction = async () => {
+        const args : any = [inputs.playerName, "San Francisco", "Canada"]
+        setArgs(args)
+      }
+      
+      mintFunction()
+    }, [inputs])
+    
+    const { data: contractWriteData, isLoading: isWriteLoading, isSuccess, error, write } = useContractWrite(config ? config : {});
+    console.log('error,', error)
     return (
         <div className="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-night-100 sm:items-center py-4 sm:pt-0 font-exo">
         <div className="card0 px-5 max-w-3xl ">
@@ -33,7 +45,7 @@ export default function newPlayer() {
             <div className="text-white text-4xl mb-10">🚴 New Player</div>
               <div className="text-left text-xl">
                 <label className="text-white">Player</label>
-                <input type="text" name="playerName"  placeholder="Choose a name or a tag" value={inputs.playerName || ""} className="formInput mt-2 mb-5" 
+                <input onChange={handleChange} type="text" name="playerName"  placeholder="Choose a name or a tag" value={inputs.playerName || ""} className="formInput mt-2 mb-5" 
                 />
                 <div className="grid grid-cols-2 gap-5">
                   <div>
@@ -59,6 +71,7 @@ export default function newPlayer() {
                   onSuccess={(verificationResponse) => console.log(verificationResponse)} // you'll actually want to pass the proof to the API or your smart contract
                   onError={(error) => console.error(error)}
                 /> */}
+
                 
               </div>
             </form>
@@ -66,7 +79,7 @@ export default function newPlayer() {
           </div>
           <div className="col-span-12 text-center mb-10">
             {/*onClick={() => tx(writeContracts.YourContract.registerUser(name, hometown, country))} */}
-            <div className="formBT">Mint Place NFT</div>
+            <div onClick={handleSubmit} className="formBT">Register new player</div>
           </div>
         </div>
         </div>
