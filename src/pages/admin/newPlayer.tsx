@@ -44,7 +44,6 @@ export default function newPlayer() {
             
           </div>
           <div className="col-span-12 text-center mb-10">
-            {/*onClick={() => tx(writeContracts.YourContract.registerUser(name, hometown, country))} */}
             <div className="formBT">Start new game</div>
           </div>
         </div>
