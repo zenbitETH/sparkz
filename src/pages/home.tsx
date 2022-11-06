@@ -6,7 +6,7 @@ import {
   useNetwork,
   useSignMessage,
   useEnsAvatar,
-  useEnsName,s
+  useEnsName,
   useDisconnect,
 } from 'wagmi'
 //import Layout from '../components/layout'
