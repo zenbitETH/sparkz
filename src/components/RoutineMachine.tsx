@@ -9,7 +9,7 @@ const createRoutineMachineLayer = ({ startPoint, endPoint }) => {
       L.latLng(endPoint[0], endPoint[1]),
     ],
     lineOptions: {
-      styles: [{ color: 'red', weight: 4 }],
+      styles: [{ color: 'blue', weight: 4 }],
     },
     show: false,
     addWaypoints: false,

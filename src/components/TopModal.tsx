@@ -1,11 +1,19 @@
-import Link from "next/link"
+import Link from 'next/link'
 
 export default function Modal(props) {
   return (
-    <div id='modal' className='bg-purple-500 text-lg  lg:text-2xl text-white font-exo font-bold fixed left-1/2 transform -translate-x-1/2 grid grid-cols-3 z-50 h-20 lg:w-1/2  w-full rounded-b-xl text-center items-center'>
+    <div
+      id='modal'
+      className='fixed left-1/2  z-50 grid h-20 w-full -translate-x-1/2 transform grid-cols-3 items-center rounded-b-xl bg-purple-500 text-center font-exo text-lg  font-bold text-white lg:w-1/2 lg:text-2xl'
+    >
       <div className=' '> 1245 ✨</div>
-      <div className  =' '> 123 🌑</div>
-      <Link className=" border border-gray-400 text-base mr-4 rounded-full" href="/admin/addPlace">Add Place</Link>
+      <div className=' '> 123 🌑</div>
+      <Link
+        className=' mr-4 rounded-full border border-gray-400 text-base'
+        href='/admin/addPlace'
+      >
+        Add Place
+      </Link>
     </div>
   )
 }

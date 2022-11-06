@@ -26,6 +26,7 @@ import {
 import { useRouter } from 'next/router'
 import { GestureHandling } from 'leaflet-gesture-handling'
 import userMarkerImg from '../../public/user-marker.png'
+import RoutineMachine from './RoutineMachine'
 
 import TopModal from './TopModal'
 
@@ -163,6 +164,9 @@ const Map = ({ position }: { position: LatLngTuple }) => {
             </Marker>
           )
         })}
+        {startPoint && endPoint && (
+          <RoutineMachine startPoint={startPoint} endPoint={endPoint} />
+        )}
       </MapContainer>
       <TopModal handleMarker={onClickShowMarker} />
       {address?.length && (
