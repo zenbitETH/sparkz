@@ -136,7 +136,7 @@ const PlaceMenu = ({
       <div className='w-1000 grid gap-5 font-exo capitalize text-white'>
         <div className='text-center text-xl'>{name}</div>
         {/* Buttons Row */}
-        <div className='grid w-full grid-cols-3 gap-5 text-center'>
+        <div className='flex w-full justify-between text-center'>
           {console.log('journey', journey)}
           {(journey === null || journey === 0) && (
             <button
