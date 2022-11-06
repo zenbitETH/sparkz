@@ -49,6 +49,7 @@ const Map = ({ position }: { position: LatLngTuple }) => {
   const [openMarkerPosition, setOpenMarkerPosition] =
     useState<LatLngTuple | null>(null)
   const [startPoint, setStartPoint] = useState<LatLngTuple | null>(null)
+  const [endPoint, setEndPoint] = useState<LatLngTuple | null>(null)
   const [rideState, setRideState] = useState<
     | 'selectDest'
     | 'confirmRide'
@@ -154,6 +155,9 @@ const Map = ({ position }: { position: LatLngTuple }) => {
                   name={loc.name}
                   openLatLng={openMarkerPosition}
                   setStartPoint={setStartPoint}
+                  startPoint={startPoint}
+                  setEndPoint={setEndPoint}
+                  endPoint={endPoint}
                 />
               </Popup>
             </Marker>
@@ -176,6 +180,7 @@ const Map = ({ position }: { position: LatLngTuple }) => {
       <BottomModal
         rideState={startPoint ? 'atOrigin' : 'selectDest'}
         startPoint={startPoint}
+        endPoint={endPoint}
       />
     </div>
   )

@@ -12,7 +12,7 @@ interface Dictionary {
 interface Props {
   rideState: string
 }
-export default function Modal({ rideState, startPoint }: Props) {
+export default function Modal({ rideState, startPoint, endPoint }: Props) {
   const messageDic: Dictionary = {
     selectDest: 'Select a destination',
     confirmRide: 'Confirm your ride',
@@ -47,6 +47,11 @@ export default function Modal({ rideState, startPoint }: Props) {
       {startPoint && (
         <p>
           start Point is: {startPoint[0]}, {startPoint[1]}
+        </p>
+      )}
+      {endPoint && (
+        <p>
+          start Point is: {endPoint[0]}, {endPoint[1]}
         </p>
       )}
     </div>

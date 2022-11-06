@@ -4,11 +4,23 @@ interface Props {
   name: string
   setZoom: (z: number) => void
 }
-const PlaceMenu = ({ name, setZoom, openLatLng, setStartPoint }: Props) => {
+const PlaceMenu = ({
+  name,
+  setZoom,
+  openLatLng,
+  setStartPoint,
+  setEndPoint,
+  startPoint,
+  endPoint,
+}: Props) => {
   const map = useMap()
   const handleButtonClick = () => {
     map.setView([37.785910776551354, -122.44279861450197], 13)
-    setStartPoint(openLatLng)
+    if (!startPoint) {
+      setStartPoint(openLatLng)
+    } else if (!endPoint) {
+      setEndPoint(openLatLng)
+    }
   }
   return (
     <div className='w-1000 grid gap-5 font-exo capitalize text-white'>
