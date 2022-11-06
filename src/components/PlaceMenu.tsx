@@ -44,7 +44,7 @@ const PlaceMenu = ({
     address: '0xd66a0156935684bd2b1Cb6a2aBE9c6B1c26b94CA',
     abi: sparkZjson.abi,
     functionName: 'locationIdToLocationDetail',
-    args: [id],
+    args: [(parseInt(id) - 1).toString()],
   })
   const [message, setMessage] = useState<String>('')
   const map = useMap()
