@@ -62,6 +62,10 @@ const Map = () => {
   const [startPoint, setStartPoint] = useState<LatLngTuple | null>(null)
   const [endPoint, setEndPoint] = useState<LatLngTuple | null>(null)
   const [rideState, setRideState] = useState<RideState>('noStartPoint')
+  const [rideStartTime, setRideStartTime] = useState<number | null>(null)
+  const [rideEndTime, setRideEndTime] = useState<number | null>(null)
+
+  const [routeLength, setRouteLength] = useState<number | null>(null)
   const { address, isConnected } = useAccount()
   const { disconnect } = useDisconnect()
   const GestureHandlingSetter = () => {
@@ -110,6 +114,8 @@ const Map = () => {
     }
     throw new Error('startPoint or position is null')
   }
+  console.log('routeLength', routeLength)
+  console.log('endTime', rideEndTime)
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -203,7 +209,11 @@ const Map = () => {
           )
         })}
         {startPoint && endPoint && (
-          <RoutineMachine startPoint={startPoint} endPoint={endPoint} />
+          <RoutineMachine
+            startPoint={startPoint}
+            endPoint={endPoint}
+            setRouteLength={setRouteLength}
+          />
         )}
       </MapContainer>
       <TopModal handleMarker={onClickShowMarker} />
@@ -225,6 +235,10 @@ const Map = () => {
         endPoint={endPoint}
         within20m={within20m}
         setRideState={setRideState}
+        setStartTime={setRideStartTime}
+        setRideEndTime={setRideEndTime}
+        rideStartTime={rideStartTime}
+        routeLength={routeLength}
       />
     </div>
   )

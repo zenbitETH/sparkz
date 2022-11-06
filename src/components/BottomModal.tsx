@@ -21,10 +21,14 @@ interface Props {
 }
 export default function Modal({
   rideState,
+  rideStartTime,
   startPoint,
   endPoint,
   within20m,
   setRideState,
+  setStartTime,
+  setRideEndTime,
+  routeLength,
 }: Props) {
   const messageDic: Dictionary = {
     noStartPoint: 'Select a start point',
@@ -35,6 +39,9 @@ export default function Modal({
     enRoute: 'Follow the route on screen',
     arrived: "You've arrived, touch to finish ride",
   }
+
+  const BIKE_SPEED = 6.25856
+
   //const [rideState, setRideState] = useState('selectDest')
   let bgColor = 'bg-purple-500'
   let cursor = 'cursor-auto'
@@ -66,27 +73,21 @@ export default function Modal({
         if (rideState === 'rideChosen') {
           const closeEnough = within20m()
           if (closeEnough) {
+            setStartTime(Date.now())
             setRideState('atOrigin')
           } else {
             setRideState('tooFarFromOrigin')
           }
         } else if (rideState === 'atOrigin') {
           setRideState('enRoute')
+        } else if (rideState === 'enRoute') {
+          setRideState('arrived')
+          setRideEndTime(rideStartTime + routeLength / BIKE_SPEED)
         }
       }}
     >
-      {console.log('rideState', rideState)}
+      {/* {console.log('rideState', rideState)} */}
       <p>{messageDic[rideState]}</p>
-      {/* {startPoint && (
-        <p>
-          start Point is: {startPoint[0]}, {startPoint[1]}
-        </p>
-      )}
-      {endPoint && (
-        <p>
-          end Point is: {endPoint[0]}, {endPoint[1]}
-        </p>
-      )} */}
     </div>
   )
 }
