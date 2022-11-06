@@ -1,12 +1,18 @@
+import { LatLng } from 'leaflet'
 import { useMap } from 'react-leaflet'
 
 interface Props {
   name: string
-  setZoom: (z: number) => void
+  //setZoom: (z: number) => void
+  openLatLng: LatLng
+  setStartPoint: (latlng: LatLng) => void
+  startPoint: LatLng
+  setEndPoint: (latlng: LatLng) => void
+  endPoint: LatLng
 }
 const PlaceMenu = ({
   name,
-  setZoom,
+  //setZoom,
   openLatLng,
   setStartPoint,
   setEndPoint,
