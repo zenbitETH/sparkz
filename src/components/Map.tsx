@@ -65,6 +65,7 @@ const Map = ({ position }: { position: LatLngTuple }) => {
   const [rideState, setRideState] = useState<RideState>('noStartPoint')
   const [rideStartTime, setRideStartTime] = useState<number | null>(null)
   const [rideEndTime, setRideEndTime] = useState<number | null>(null)
+  const [journey, setJourney] = useState<number | null>(null)
 
   const [routeLength, setRouteLength] = useState<number | null>(null)
   const { address, isConnected } = useAccount()
@@ -179,6 +180,7 @@ const Map = ({ position }: { position: LatLngTuple }) => {
                 <PlaceMenu
                   name={loc.name}
                   id={loc.id}
+                  setJourney={setJourney}
                   openLatLng={openMarkerPosition}
                   setStartPoint={setStartPoint}
                   setEndPointId={setEndPointId}
@@ -214,6 +216,7 @@ const Map = ({ position }: { position: LatLngTuple }) => {
         </button>
       )}
       <BottomModal
+        journey={journey}
         rideState={rideState}
         startPoint={startPoint}
         endPoint={endPoint}

@@ -32,6 +32,7 @@ export default function Modal({
   setRideState,
   setStartTime,
   setRideEndTime,
+  journey,
   routeLength,
 }: Props) {
   const messageDic: Dictionary = {
@@ -81,15 +82,21 @@ export default function Modal({
   }
   const rideEndTime = Math.floor(rideStartTime + routeLength / BIKE_SPEED)
 
-  const payload = [
-    1,
-    startPointId - 1,
-    rideStartTime,
-    endPointId - 1,
-    rideEndTime,
-    parseInt(routeLength),
-    parseInt(routeLength),
-  ]
+  const payload = (() => {
+    if (journey === 0 || journey === 1) {
+      return [
+        journey,
+        startPointId - 1,
+        rideStartTime,
+        endPointId - 1,
+        rideEndTime,
+        parseInt(routeLength),
+        parseInt(routeLength),
+      ]
+    } else {
+      return [journey, 0, 0, endPointId - 1, 0, parseInt(routeLength), 0]
+    }
+  })()
 
   const { config } = usePrepareContractWrite({
     address: '0xd66a0156935684bd2b1Cb6a2aBE9c6B1c26b94CA',
