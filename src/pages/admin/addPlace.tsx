@@ -51,8 +51,8 @@ export default function addPlace() {
       const url = `https://infura-ipfs.io/ipfs/${added.path}`
       console.log('The uploaded metadata ipfs link is ', url)
       const { config } = usePrepareContractWrite({
-        addressOrName: '',
-        contractInterface: [],
+        address: '',
+        abi: [],
         functionName: 'addLocation',
         args: [],
         chainId: 5,
