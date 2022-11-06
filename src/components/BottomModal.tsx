@@ -51,7 +51,7 @@ export default function Modal({ rideState, startPoint, endPoint }: Props) {
       )}
       {endPoint && (
         <p>
-          start Point is: {endPoint[0]}, {endPoint[1]}
+          end Point is: {endPoint[0]}, {endPoint[1]}
         </p>
       )}
     </div>

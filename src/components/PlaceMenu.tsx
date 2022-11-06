@@ -24,7 +24,10 @@ const PlaceMenu = ({
     map.setView([37.785910776551354, -122.44279861450197], 13)
     if (!startPoint) {
       setStartPoint(openLatLng)
-    } else if (!endPoint) {
+    } else if (
+      (!endPoint && startPoint[0] !== openLatLng[0]) ||
+      startPoint[1] !== openLatLng[1]
+    ) {
       setEndPoint(openLatLng)
     }
   }
