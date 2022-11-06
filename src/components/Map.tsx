@@ -13,7 +13,7 @@ import 'leaflet/dist/leaflet.css'
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css'
 import 'leaflet-defaulticon-compatibility'
 import BottomModal from './BottomModal'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {
   useAccount,
   useConnect,
@@ -21,7 +21,8 @@ import {
   useSignMessage,
   useEnsAvatar,
   useEnsName,
-  useDisconnect
+  useDisconnect,
+  usePrepareContractWrite,
 } from 'wagmi'
 import { useRouter } from 'next/router'
 import { GestureHandling } from 'leaflet-gesture-handling'
@@ -60,6 +61,8 @@ const Map = () => {
   const [openMarkerPosition, setOpenMarkerPosition] =
     useState<LatLngTuple | null>(null)
   const [startPoint, setStartPoint] = useState<LatLngTuple | null>(null)
+  const [startPointId, setStartPointId] = useState<string | null>(null)
+  const [endPointId, setEndPointId] = useState<string | null>(null)
   const [endPoint, setEndPoint] = useState<LatLngTuple | null>(null)
   const [rideState, setRideState] = useState<RideState>('noStartPoint')
   const [rideStartTime, setRideStartTime] = useState<number | null>(null)
@@ -134,7 +137,7 @@ const Map = () => {
   if (!loc) {
     return <Loading />
   }
-  
+
   return (
     <div>
       <MapContainer
@@ -197,8 +200,11 @@ const Map = () => {
               >
                 <PlaceMenu
                   name={loc.name}
+                  id={loc.id}
                   openLatLng={openMarkerPosition}
                   setStartPoint={setStartPoint}
+                  setEndPointId={setEndPointId}
+                  setStartPointId={setStartPointId}
                   startPoint={startPoint}
                   setEndPoint={setEndPoint}
                   endPoint={endPoint}
@@ -233,6 +239,8 @@ const Map = () => {
         rideState={rideState}
         startPoint={startPoint}
         endPoint={endPoint}
+        startPointId={startPointId}
+        endPointId={endPointId}
         within20m={within20m}
         setRideState={setRideState}
         setStartTime={setRideStartTime}

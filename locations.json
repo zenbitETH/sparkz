@@ -1,5 +1,6 @@
 [
   {
+    "id": "1",
     "name": "Palace of fine Arts",
     "type": "⭐",
     "city": "San Francisco",
@@ -8,6 +9,7 @@
     "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Palace_of_Fine_Arts_%2816794p%29.jpg/1199px-Palace_of_Fine_Arts_%2816794p%29.jpg"
   },
   {
+    "id": "2",
     "name": "Golden Gate View Point (south)",
     "type": "⭐",
     "city": "San Francisco",
@@ -16,6 +18,7 @@
     "img": "https://lh5.googleusercontent.com/p/AF1QipPRbNzttaZeGreM696DV44k4mO6gSqBOAu22dPB=w408-h306-k-no"
   },
   {
+    "id": "3",
     "name": "Golden Gate Lime Point (north)",
     "type": "⭐",
     "city": "San Francisco",
@@ -24,6 +27,7 @@
     "img": "https://lh5.googleusercontent.com/p/AF1QipPFxzw4EIBNtTA_SuSNGlTZ3Izvc9n7DbraBgDi=w408-h271-k-no"
   },
   {
+    "id": "4",
     "name": "Crissy Field",
     "type": "⛲",
     "city": "San Francisco",
@@ -32,6 +36,7 @@
     "img": "https://lh5.googleusercontent.com/p/AF1QipOU9wU1C0H-EXPru2il32xoXV2695Hoc_ghsDq2=w408-h300-k-no"
   },
   {
+    "id": "5",
     "name": "Golden Gate Park",
     "type": "⛲",
     "city": "San Francisco",
@@ -40,6 +45,7 @@
     "img": "https://lh6.googleusercontent.com/proxy/Re_uJganG3pBk9D1SDgNoBUSZxRfsvy8OftjqwO5RWQHyy1Zv0E9fATdxXdqr158SSlyY8zEnpyn7_R8cesEpFFRVwRbgbMnfMmiGaR9bOEFWpz62sQR7tF9jewXBcdYydS3hL6kKOd7J_e290lkiG-Kl2Q0rg=w408-h272-k-no"
   },
   {
+    "id": "6",
     "name": "Buena Vista Park",
     "type": "⛲",
     "city": "San Francisco",
@@ -48,6 +54,7 @@
     "img": "https://lh5.googleusercontent.com/p/AF1QipNQJbzzAEm6UMQz6kRHEOyKNMoSIF1qpnV-pPC_=w408-h306-k-no"
   },
   {
+    "id": "7",
     "name": "Chase Center",
     "type": "🏟️",
     "city": "San Francisco",
@@ -56,6 +63,7 @@
     "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Chase_Center.jpg/375px-Chase_Center.jpg"
   },
   {
+    "id": "8",
     "name": "Bill Graham Civic Center",
     "type": "🗳️",
     "city": "San Francisco",
@@ -64,6 +72,7 @@
     "img": "https://lh5.googleusercontent.com/p/AF1QipPa_6n2NfmCuxkWrppvfl2yM7fvPkrg4N2ZtyTd=w408-h272-k-no"
   },
   {
+    "id": "9",
     "name": "SF MoMa",
     "type": "🎭",
     "city": "San Francisco",
@@ -72,6 +81,7 @@
     "img": "https://lh5.googleusercontent.com/p/AF1QipOveLy55yE4o-vxu0qRoohgLsmRFCZ90uhvRW_o=w408-h305-k-no"
   },
   {
+    "id": "10",
     "name": "Ocean Beach",
     "type": "🏖️",
     "city": "San Francisco",
@@ -80,6 +90,7 @@
     "img": "https://lh5.googleusercontent.com/p/AF1QipNjOTImzw8P-Uhizsm7lbZ0KUW4sqIhha1qN6MB=w408-h306-k-no"
   },
   {
+    "id": "11",
     "name": "Baker Beach",
     "type": "🏖️",
     "city": "San Francisco",
@@ -88,6 +99,7 @@
     "img": "https://lh5.googleusercontent.com/p/AF1QipNpg6jSUPld3LB7sa0qmNgcS0d0ltswJ6AGsuFz=w408-h306-k-no"
   },
   {
+    "id": "12",
     "name": "Salesforce Tower",
     "type": "⭐",
     "city": "San Francisco",
@@ -96,6 +108,7 @@
     "img": "https://lh5.googleusercontent.com/p/AF1QipOdnD9XYIrz5OVopv9JbHvWtqyRv7krvh7jW8Jo=w408-h541-k-no"
   },
   {
+    "id": "13",
     "name": "Oracle Park",
     "type": "🏟️",
     "city": "San Francisco",
@@ -104,6 +117,7 @@
     "img": "https://lh5.googleusercontent.com/p/AF1QipO0GrIXBhXYgywEz1YyX5NwHT2gYtrQ4vRKQAah=w408-h306-k-no"
   },
   {
+    "id": "14",
     "name": "Ferry Building",
     "type": "⭐",
     "city": "San Francisco",
@@ -112,6 +126,7 @@
     "img": "https://lh5.googleusercontent.com/p/AF1QipMc7x2UpswRciw7aEQrL1_XL4xdFKEWoC9cU_WX=w408-h306-k-no"
   },
   {
+    "id": "15",
     "name": "Dolores Park",
     "type": "⛲",
     "city": "San Francisco",
@@ -120,6 +135,7 @@
     "img": "https://lh5.googleusercontent.com/p/AF1QipNxkllLVnUQNOn4ONyMo50DP7D0hHj74e68hT2L=w408-h306-k-no"
   },
   {
+    "id": "16",
     "name": "SF Zoo",
     "type": "⭐",
     "city": "San Francisco",
@@ -128,6 +144,7 @@
     "img": "https://lh5.googleusercontent.com/p/AF1QipNKoAwsLxDSpTqaDH9kyy0PK_Ein1Ss97EM1DHD=w408-h544-k-no"
   },
   {
+    "id": "17",
     "name": "SF Symphony",
     "type": "⭐",
     "city": "San Francisco",
@@ -136,6 +153,7 @@
     "img": "https://www.sftourismtips.com/images/sf-symphony-louise-m-davies.jpg"
   },
   {
+    "id": "18",
     "name": "Fisherman's Warf",
     "type": "⭐",
     "city": "San Francisco",
