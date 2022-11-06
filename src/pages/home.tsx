@@ -102,8 +102,9 @@ function Siwe() {
     </>
   )
 }
-
+const fs = require('fs')
 export async function getServerSideProps(context: any) {
+  fs
   return {
     props: {
       csrfToken: await getCsrfToken(context),

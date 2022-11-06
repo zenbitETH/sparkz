@@ -10,6 +10,7 @@ import { InjectedConnector } from 'wagmi/connectors/injected'
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask'
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet'
+import Script from 'next/script'
 
 export const { chains, provider, webSocketProvider } = configureChains(
   [chain.mainnet, chain.polygon, chain.optimism, chain.arbitrum, chain.polygonMumbai],
@@ -36,10 +37,14 @@ export default function App({
   session: Session
 }>) {
   return (
-    <WagmiConfig client={client}>
-      <SessionProvider session={pageProps.session} refetchInterval={0}>
-        <Component {...pageProps} />
-      </SessionProvider>
-    </WagmiConfig>
+    <>
+      <Script src="/snarkjs.min.js" />
+      <WagmiConfig client={client}>
+        <SessionProvider session={pageProps.session} refetchInterval={0}>
+          <Component {...pageProps} />
+        </SessionProvider>
+      </WagmiConfig>
+    </>
+
   )
 }
