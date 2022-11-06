@@ -1,3 +1,5 @@
+import { WorldIDWidget } from '@worldcoin/id'
+
 export default function addPlace() {
     return (
         <div className="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-night-100 sm:items-center py-4 sm:pt-0 font-exo">
@@ -26,8 +28,13 @@ export default function addPlace() {
                   </div>
                 </div>    
                 <label className="text-white">Do you have a Worldcoin ID?</label>
-                <div>Add WorldID widget here</div>
-                        
+                {/*<WorldIDWidget
+                  actionId="wid_BPZsRJANxct2cZxVRyh80SFG" // obtain this from developer.worldcoin.org
+                  signal="my_signal"
+                  enableTelemetry
+                  onSuccess={(verificationResponse) => console.log(verificationResponse)} // you'll actually want to pass the proof to the API or your smart contract
+                  onError={(error) => console.error(error)}
+                />*/}
                 
               </div>
             </form>
