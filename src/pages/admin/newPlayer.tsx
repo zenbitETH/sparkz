@@ -1,6 +1,9 @@
 import { WorldIDWidget } from '@worldcoin/id'
+import { useState, useEffect } from 'react';
 
-export default function addPlace() {
+export default function newPlayer() {
+    const [inputs, setInputs] = useState<Record<string,any>>({});
+
     return (
         <div className="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-night-100 sm:items-center py-4 sm:pt-0 font-exo">
         <div className="card0 px-5 max-w-3xl ">
@@ -28,13 +31,13 @@ export default function addPlace() {
                   </div>
                 </div>    
                 <label className="text-white">Do you have a Worldcoin ID?</label>
-                {/*<WorldIDWidget
-                  actionId="wid_BPZsRJANxct2cZxVRyh80SFG" // obtain this from developer.worldcoin.org
+                {/* <WorldIDWidget
+                  actionId="wid_staging_787c6e87256769d805c0892889048671" // obtain this from developer.worldcoin.org
                   signal="my_signal"
                   enableTelemetry
                   onSuccess={(verificationResponse) => console.log(verificationResponse)} // you'll actually want to pass the proof to the API or your smart contract
                   onError={(error) => console.error(error)}
-                />*/}
+                /> */}
                 
               </div>
             </form>
