@@ -12,6 +12,7 @@
     "@heroicons/react": "^1.0.6",
     "@nomicfoundation/hardhat-toolbox": "^2.0.0",
     "@openzeppelin/contracts": "^4.7.3",
+    "@worldcoin/id": "^0.9.2",
     "ethers": "^5.7.2",
     "hardhat": "^2.12.2",
     "hardhat-abi-exporter": "^2.10.1",
