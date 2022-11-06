@@ -1,13 +1,62 @@
+/* import the ipfs-http-client library */
+import { create } from 'ipfs-http-client';
+import { useState } from 'react';
+import { XIcon } from '@heroicons/react/solid';
+
+const projectId = '2H9PlkW4WSouTWsmpuTOFFBGwB3';
+
+const projectSecret = '84b9d3caccfcc2ee184864d597982b70';
+
+const auth = 'Basic ' + Buffer.from(projectId + ':' + projectSecret).toString('base64');
+
+
+
+const client = create({
+    host: 'ipfs.infura.io',
+    port: 5001,
+    protocol: 'https',
+    headers: {
+        authorization: auth,
+    },
+});
+
 export default function addPlace() {
-    
+  const [inputs, setInputs] = useState<Record<string,any>>({});
+    const [fileUrl, updateFileUrl] = useState(``)
+    async function onChange(e: any) {
+      const file = e.target.files[0]
+      try {
+        const added = await client.add(file)
+        const url = `https://infura-ipfs.io/ipfs/${added.path}`
+        updateFileUrl(url)
+      } catch (error) {
+        console.log('Error uploading file: ', error)
+      }  
+    }
+
+    async function deleteImage() {
+      updateFileUrl((''))
+    }
+
+    const handleChange = (event: any) => {
+      const name = event.target.name;
+      const value = event.target.value;
+      setInputs((values: Record<string, any>)  => ({...values, [name]: value}))
+    }
+  
+    const handleSubmit = () => {
+      console.log('the value', inputs)
+    }
+
     return (
         <div className="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-night-100 sm:items-center py-4 sm:pt-0 font-exo">
       <div className="card0 px-5 max-w-3xl ">
         <div className="col-span-12 row-span-5 text-center rounded-3xl p-5">
+          <form >
           <div className="text-white text-4xl mb-10">⛲ Add Place</div>
             <div className="text-left text-xl">
               <label className="text-white">Type of place:</label>
-              <select id="TypeOfPlace" placeholder="Park"  className="bg-white mb-5 pl-5 text-black w-full rounded-lg px-6 py-3 mt-2 ">
+              <select id="TypeOfPlace" placeholder="Park" name="placeType" onChange={handleChange} className="bg-white mb-5 pl-5 text-black w-full rounded-lg px-6 py-3 mt-2 ">
                 <option disabled selected>The place is a...</option>
                 <option>⛲ Public Park</option>
                 <option>🛹 Skate Park</option>
@@ -27,7 +76,10 @@ export default function addPlace() {
                 <option>🌳 Tree</option>
               </select>
               <label className="text-white">Place Name</label>
-              <input type="text" placeholder="Its name is..."  className="formInput mt-2 mb-5"/>
+              <input type="text" name="placeName"  placeholder="Its name is..."  className="formInput mt-2 mb-5" 
+                value={inputs.placeName || ""} 
+                onChange={handleChange}
+              />
               <div className="grid grid-cols-2 gap-5">
                 <div>
                     <label className="text-white">Latitude</label>
@@ -42,23 +94,32 @@ export default function addPlace() {
                     <div className='text-white text-center'>Upload cover image</div>
                     <div className="flex justify-center items-center w-full">
                         <label className="formFile">
-                            <div className="flex flex-col justify-center items-center pt-5 pb-6">
-                                <svg aria-hidden="true" className="mb-3 w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
-                                <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span> or drag and drop</p>
+                            <div className="cursor-pointer flex flex-col justify-center items-center pt-5 pb-6">
+                                <svg aria-hidden="true" className="mb-3 w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                <p className=" mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span></p>
 
                             </div>
-                            <input id="dropzone-file" type="file" className="hidden" />
-                          
+                            <input id="dropzone-file" type="file"  onChange={onChange} className="hidden" />
+                            {
+                              fileUrl && (
+                                <div className="flex flex-row">
+                                  <img src={fileUrl} width="300px" />
+                                  <XIcon onClick={deleteImage}  className="h-10 w-10 text-white" />
+                                </div>
+                              )
+                            }
                         </label>
                     </div>
                 </div>
              
               
             </div>
+          </form>
+          
         </div>
         <div className="col-span-12 text-center mb-10">
           {/*onClick={() => tx(writeContracts.YourContract.registerUser(name, hometown, country))} */}
-          <div className="formBT">Mint Place NFT</div>
+          <div onClick={handleSubmit} className="formBT">Mint Place NFT</div>
         </div>
       </div>
       </div>
