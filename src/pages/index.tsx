@@ -18,7 +18,7 @@ const Home = () => {
         const { latitude, longitude } = position.coords
         const latLong = [latitude, longitude] as LatLngTuple
         setLoc(latLong)
-        console.log(latLong)
+        //console.log(latLong)
       },
       (error) => {
         console.error(error)

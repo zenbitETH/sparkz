@@ -46,6 +46,8 @@ var userIcon = new L.Icon({
 
 const Map = ({ position }: { position: LatLngTuple }) => {
   const router = useRouter()
+  const [openMarkerPosition, setOpenMarkerPosition] =
+    useState<LatLngTuple | null>(null)
   const [startPoint, setStartPoint] = useState<LatLngTuple | null>(null)
   const [rideState, setRideState] = useState<
     | 'selectDest'
@@ -55,7 +57,7 @@ const Map = ({ position }: { position: LatLngTuple }) => {
     | 'enRoute'
     | 'arrived'
     | null
-  >
+  >(null)
   const { address, isConnected } = useAccount()
   const { disconnect } = useDisconnect()
   const GestureHandlingSetter = () => {
@@ -128,14 +130,31 @@ const Map = ({ position }: { position: LatLngTuple }) => {
               key={loc.name}
               eventHandlers={{
                 click: ({ latlng: { lat, lng } }) => {
-                  setStartPoint([lat, lng])
-                  //console.log('lat', lat)
-                  //console.log('lng', lng)
+                  setOpenMarkerPosition([lat, lng])
+                  //console.log('e from marker', e)
                 },
+                // click: ({ latlng: { lat, lng } }) => {
+                //   setStartPoint([lat, lng])
+                //   //console.log('lat', lat)
+                //   //console.log('lng', lng)
+                // },
               }}
             >
-              <Popup>
-                <PlaceMenu name={loc.name} />
+              <Popup
+                eventHandlers={{
+                  click: (e) => {
+                    console.log('e.popup', e.popup)
+                    //setStartPoint([lat, lng])
+                    //console.log('lat', lat)
+                    //console.log('lng', lng)
+                  },
+                }}
+              >
+                <PlaceMenu
+                  name={loc.name}
+                  openLatLng={openMarkerPosition}
+                  setStartPoint={setStartPoint}
+                />
               </Popup>
             </Marker>
           )

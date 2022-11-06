@@ -4,14 +4,14 @@ interface Props {
   name: string
   setZoom: (z: number) => void
 }
-const PlaceMenu = ({ name, setZoom }: Props) => {
+const PlaceMenu = ({ name, setZoom, openLatLng, setStartPoint }: Props) => {
   const map = useMap()
   const handleButtonClick = () => {
     map.setView([37.785910776551354, -122.44279861450197], 13)
+    setStartPoint(openLatLng)
   }
   return (
     <div className='w-1000 grid gap-5 font-exo capitalize text-white'>
-      {console.log('name', name)}
       <div className='text-center text-xl'>{name}</div>
       {/* Buttons Row */}
       <div className='grid w-full grid-cols-3 gap-5 text-center'>
