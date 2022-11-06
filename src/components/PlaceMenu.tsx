@@ -23,6 +23,7 @@ interface Props {
   setRideState: (state: RideState) => void
   setStartPointId: (id: string) => void
   setEndPointId: (id: string) => void
+  setJourney: (journey: number) => void
 }
 const PlaceMenu = ({
   name,
@@ -33,13 +34,13 @@ const PlaceMenu = ({
   setEndPoint,
   setEndPointId,
   startPoint,
-
+  setJourney,
   endPoint,
   setRideState,
 }: Props) => {
   const [message, setMessage] = useState<String>('')
   const map = useMap()
-  const handleButtonClick = () => {
+  const handleButtonClick = (journey: number) => {
     //zoom out
     map.setView([37.785910776551354, -122.44279861450197], 13)
     if (!startPoint) {
@@ -50,13 +51,14 @@ const PlaceMenu = ({
       (!endPoint && startPoint[0] !== openLatLng[0]) ||
       startPoint[1] !== openLatLng[1]
     ) {
+      setJourney(journey)
       setEndPoint(openLatLng)
       setEndPointId(id)
       setRideState('rideChosen')
     }
   }
 
-  const handleRideButtonClick = async () => {
+  const handleRideButtonClick = async (journey: number) => {
     //zoom out
     map.setView([37.785910776551354, -122.44279861450197], 13)
     if (!startPoint) {
@@ -67,6 +69,7 @@ const PlaceMenu = ({
       (!endPoint && startPoint[0] !== openLatLng[0]) ||
       startPoint[1] !== openLatLng[1]
     ) {
+      setJourney(journey)
       setEndPoint(openLatLng)
       setEndPointId(id)
       setRideState('rideChosen')
@@ -129,19 +132,19 @@ const PlaceMenu = ({
         {/* Buttons Row */}
         <div className='grid w-full grid-cols-3 gap-5 text-center'>
           <button
-            onClick={handleRideButtonClick}
+            onClick={()=>handleRideButtonClick(0)}
             className='w-full rounded-xl border px-5 py-3 lg:text-lg'
           >
             Ride
           </button>
           <button
-            onClick={handleButtonClick}
+            onClick={()=>handleButtonClick(1)}
             className='w-full rounded-xl border px-5 py-3 lg:text-lg'
           >
             Move
           </button>
           <button
-            onClick={handleButtonClick}
+            onClick={()=>handleButtonClick(2)}
             className='w-full rounded-xl border px-5 py-3 lg:text-lg'
           >
             Attack

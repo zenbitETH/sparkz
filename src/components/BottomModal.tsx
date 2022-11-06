@@ -93,7 +93,7 @@ export default function Modal({
         parseInt(routeLength),
       ]
     } else {
-      return [journey, 0, 0, endPointId - 1, 0, parseInt(routeLength), 0]
+      return [0, 0, 0, endPointId - 1, 0, parseInt(routeLength), 0]
     }
   })()
 
