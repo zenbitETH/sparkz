@@ -139,6 +139,7 @@ const PlaceMenu = ({
       ) {
         locationHash = mapping
         break
+<<<<<<< HEAD
       }
     }
     // if (!locationHash) {
@@ -177,11 +178,13 @@ const PlaceMenu = ({
       ) {
         locationHash = mapping
         break
+=======
+>>>>>>> 11c3e29 (payload correct)
       }
     }
-    if (!locationHash) {
-      throw new Error('Could not find location hash')
-    }
+    // if (!locationHash) {
+    //   throw new Error('Could not find location hash')
+    // }
     // const result = await validateLocation(locationHash, latitude.toString(), longitude.toString())
     const result = true
     if (result) {
@@ -191,6 +194,7 @@ const PlaceMenu = ({
     }
   }
 
+<<<<<<< HEAD
   const handleConfirmRideButtonClick = async () => {
     const args = [
       0,
@@ -210,6 +214,8 @@ const PlaceMenu = ({
     })
   }
 
+=======
+>>>>>>> 11c3e29 (payload correct)
   return (
     <div className='w-1000 grid gap-5 font-exo capitalize text-white'>
       <div className='text-center text-xl'>{name}</div>
