@@ -9,6 +9,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@graphprotocol/graph-cli": "^0.35.0",
     "@heroicons/react": "^1.0.6",
     "@nomicfoundation/hardhat-toolbox": "^2.0.0",
     "@openzeppelin/contracts": "^4.7.3",
