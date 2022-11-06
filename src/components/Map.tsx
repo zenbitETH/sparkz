@@ -21,7 +21,7 @@ import {
   useSignMessage,
   useEnsAvatar,
   useEnsName,
-  useDisconnect,
+  useDisconnect
 } from 'wagmi'
 import { useRouter } from 'next/router'
 import { GestureHandling } from 'leaflet-gesture-handling'
@@ -32,6 +32,8 @@ import TopModal from './TopModal'
 
 import PlaceMenu from './PlaceMenu'
 import { XIcon } from '@heroicons/react/solid'
+import React, { useEffect } from 'react'
+import Loading from '../components/Loading'
 
 import locs from '../../locations.json' assert { type: 'json' }
 const side = 50
@@ -53,7 +55,7 @@ export type RideState =
   | 'enRoute'
   | 'arrived'
 
-const Map = ({ position }: { position: LatLngTuple }) => {
+const Map = () => {
   const router = useRouter()
   const [openMarkerPosition, setOpenMarkerPosition] =
     useState<LatLngTuple | null>(null)
@@ -71,6 +73,8 @@ const Map = ({ position }: { position: LatLngTuple }) => {
     /* eslint-enable */
     return null
   }
+
+  const [loc, setLoc] = React.useState<LatLngTuple | null>(null)
 
   const markerRef = useRef(null)
 
@@ -107,11 +111,29 @@ const Map = ({ position }: { position: LatLngTuple }) => {
     throw new Error('startPoint or position is null')
   }
 
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords
+        const latLong = [latitude, longitude] as LatLngTuple
+        setLoc(latLong)
+        //console.log(latLong)
+      },
+      (error) => {
+        console.error(error)
+      }
+    )
+  }, [])
+
+  if (!loc) {
+    return <Loading />
+  }
+  
   return (
     <div>
       <MapContainer
         className='fixed h-full w-full'
-        center={position}
+        center={loc!}
         zoom={19}
         scrollWheelZoom={false}
       >
@@ -122,7 +144,7 @@ const Map = ({ position }: { position: LatLngTuple }) => {
           subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
         />
         <div className='userLocMarker'>
-          <Marker position={position} icon={userIcon} ref={markerRef}>
+          <Marker position={loc!} icon={userIcon} ref={markerRef}>
             <Popup className='userLocPopUp'>
               <PlaceMenu />
             </Popup>
