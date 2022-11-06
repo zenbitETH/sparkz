@@ -1,6 +1,6 @@
 /* import the ipfs-http-client library */
 import { create } from 'ipfs-http-client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { XIcon } from '@heroicons/react/solid';
 import { usePrepareContractWrite, useContractWrite } from 'wagmi';
 
@@ -19,20 +19,10 @@ const client = create({
     },
 });
 
-const args = []
-const { config } = usePrepareContractWrite({
-  address: '0xd66a0156935684bd2b1Cb6a2aBE9c6B1c26b94CA',
-  abi: abi,
-  functionName: 'mint',
-  args,
-  chainId: 80001,
-});
-
-const { data: contractWriteData, isLoading: isWriteLoading, isSuccess, write } = useContractWrite(config);
-
 export default function addPlace() {
   const [inputs, setInputs] = useState<Record<string,any>>({});
     const [fileUrl, updateFileUrl] = useState(``)
+    const [config, setConfig] = useState<any>(null)
     async function onChange(e: any) {
       const file = e.target.files[0]
       try {
@@ -69,6 +59,55 @@ export default function addPlace() {
         chainId: 5,
       });
     }
+
+    useEffect(() => {
+      const lat = parseInt(inputs.latitude)
+      const long = parseInt(inputs.longitude)
+      const metadata = createMetadata(inputs, fileUrl)
+      const args : any = [0, inputs.placeName, , lat, long, ]
+      const { config } = usePrepareContractWrite({
+        address: '0xd66a0156935684bd2b1Cb6a2aBE9c6B1c26b94CA',
+        abi: [{
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "_placeType",
+              "type": "uint256"
+            },
+            {
+              "internalType": "string",
+              "name": "_locationName",
+              "type": "string"
+            },
+            {
+              "internalType": "int256",
+              "name": "_latitude",
+              "type": "int256"
+            },
+            {
+              "internalType": "int256",
+              "name": "_longitude",
+              "type": "int256"
+            },
+            {
+              "internalType": "string",
+              "name": "_ipfsuri",
+              "type": "string"
+            }
+          ],
+          "name": "addLocation",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        }],
+        functionName: 'addLocation',
+        args,
+        chainId: 80001,
+      });
+      setConfig(config)
+    }, [inputs, fileUrl])
+
+    const { data: contractWriteData, isLoading: isWriteLoading, isSuccess, write } = useContractWrite(config);
 
     return (
         <div className="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-night-100 sm:items-center py-4 sm:pt-0 font-exo">
