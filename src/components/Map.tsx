@@ -28,8 +28,6 @@ import userMarkerImg from '../../public/user-marker.png'
 
 import Modal from './Modal'
 
-//import styles from '../../styles/Map.module.scss'
-//import styles from '../../styles/Map.module.scss'
 import PlaceMenu from './PlaceMenu'
 import { XIcon } from '@heroicons/react/solid'
 
@@ -44,15 +42,6 @@ var userIcon = new L.Icon({
   popupAnchor: [0, -side / 2],
   shadowSize: [41, 41],
 })
-
-// const InternalPop = () => {
-//   return (
-//     <div>
-//       <div>hello</div>
-//       <button>click me</button>
-//     </div>
-//   )
-// }
 
 const Map = ({ position }: { position: LatLngTuple }) => {
   const router = useRouter()
@@ -88,8 +77,6 @@ const Map = ({ position }: { position: LatLngTuple }) => {
     marker.togglePopup()
   }
 
-  console.log('position', position)
-
   return (
     <div>
       <MapContainer
@@ -122,22 +109,7 @@ const Map = ({ position }: { position: LatLngTuple }) => {
             popupAnchor: [0, -side / 2],
             shadowSize: [41, 41],
           })
-          // const icon = new L.Icon({
-          //   iconUrl:
-          //     'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
-          //   shadowUrl:
-          //     'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-          //   iconAnchor: [loc.lat, loc.lon],
-          //   popupAnchor: [loc.lat, loc.lon],
-          //   shadowUrl: null,
-          //   shadowSize: null,
-          //   shadowAnchor: null,
-          //   iconSize: new L.Point(60, 60),
-          //   className: 'leaflet-div-icon',
-          //   onclick: () => {
-          //     console.log('clicked')
-          //   },
-          // })
+
           return (
             <Marker
               icon={icon}
@@ -155,11 +127,6 @@ const Map = ({ position }: { position: LatLngTuple }) => {
             </Marker>
           )
         })}
-        {/* <Marker position={position}>
-        <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
-        </Popup>
-      </Marker> */}
       </MapContainer>
       <Modal handleMarker={onClickShowMarker} />
       {address?.length && (
@@ -189,35 +156,3 @@ function shortHandAddress(address: string) {
 }
 
 export default Map
-
-/*
-  const { MapContainer, Marker, Popup, TileLayer, useMap } = DynamicReactLeaflet
-  const [loc, setLoc] = useState([51.505, -0.09])
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      // this prettier formatting is the worst
-      // this is what I want this to look like, saved by comments
-      (position) => {
-        const { latitude, longitude } = position.coords
-        const latLong = [latitude, longitude]
-        setLoc(latLong)
-        console.log(position)
-      }
-    ),
-      (error: string) => {
-        console.error(error)
-      }
-  }, [])
-  return (
-    <div>
-      <MapContainer>
-        <TileLayer url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' />
-        <Marker position={loc}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
-        </Marker>
-      </MapContainer>
-    </div>
-  )
-  */

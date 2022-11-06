@@ -6,12 +6,8 @@ interface Props {
 }
 const PlaceMenu = ({ name, setZoom }: Props) => {
   const map = useMap()
-  console.log('map', map)
   const handleButtonClick = () => {
-    console.log('handle zoom')
-    //setZoom(5)
     map.setView([37.785910776551354, -122.44279861450197], 13)
-    //console.log(map.getCenter())
   }
   return (
     <div className='w-1000 grid gap-5 font-exo capitalize text-white'>
