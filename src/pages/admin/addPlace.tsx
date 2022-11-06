@@ -26,6 +26,7 @@ export default function addPlace() {
     async function onChange(e: any) {
       const file = e.target.files[0]
       try {
+           // upload image to ipfs
         const added = await client.add(file)
         const url = `https://infura-ipfs.io/ipfs/${added.path}`
         updateFileUrl(url)
@@ -44,8 +45,12 @@ export default function addPlace() {
       setInputs((values: Record<string, any>)  => ({...values, [name]: value}))
     }
   
-    const handleSubmit = () => {
-      console.log('the value', inputs)
+    const handleSubmit = async () => {
+      const metadata = createMetadata(inputs, fileUrl)
+      // upload metadata to ipfs
+      const added = await client.add(JSON.stringify(metadata))
+      const url = `https://infura-ipfs.io/ipfs/${added.path}`
+      console.log('The uploaded metadata ipfs link is ', url)
     }
 
     return (
@@ -83,11 +88,13 @@ export default function addPlace() {
               <div className="grid grid-cols-2 gap-5">
                 <div>
                     <label className="text-white">Latitude</label>
-                    <input type="text" placeholder="Type the lat cordinates"   className="formInput mt-2 mb-5"/>
+                    <input type="text" name="latitude"  placeholder="Type the lat cordinates" value={inputs.latitude || ""} 
+                            onChange={handleChange}  className="formInput mt-2 mb-5"/>
                 </div>
                 <div>
                     <label className="text-white">Longitude</label>
-                    <input type="text" placeholder="Type the long cordinates"   className="formInput mt-2 mb-5"/>
+                    <input type="text" name="longitude"  placeholder="Type the long cordinates"  value={inputs.longitude || ""} 
+                            onChange={handleChange}  className="formInput mt-2 mb-5"/>
                 </div>
               </div>
               <div className='p-5'>
@@ -124,4 +131,22 @@ export default function addPlace() {
       </div>
       </div>
     )
+  }
+
+  export function createMetadata (inputValues: Record<string, any>, ipfsImageUrl: string) {
+    return {
+      name: inputValues.placeName,
+      description: `This place is a ${inputValues.placeType}`,
+      attributes: [ {
+        trait_type: "Latitude",
+        value: inputValues.latitude
+      },
+      {
+        trait_type: "Longitude",
+        value: inputValues.longitude
+      },
+      ],
+      image: ipfsImageUrl,
+      image_url: ipfsImageUrl
+    }
   }
