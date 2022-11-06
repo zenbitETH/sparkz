@@ -13,7 +13,7 @@ import 'leaflet/dist/leaflet.css'
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css'
 import 'leaflet-defaulticon-compatibility'
 import BottomModal from './BottomModal'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {
   useAccount,
   useConnect,
@@ -22,6 +22,7 @@ import {
   useEnsAvatar,
   useEnsName,
   useDisconnect,
+  usePrepareContractWrite,
 } from 'wagmi'
 import { useRouter } from 'next/router'
 import { GestureHandling } from 'leaflet-gesture-handling'
@@ -58,8 +59,14 @@ const Map = ({ position }: { position: LatLngTuple }) => {
   const [openMarkerPosition, setOpenMarkerPosition] =
     useState<LatLngTuple | null>(null)
   const [startPoint, setStartPoint] = useState<LatLngTuple | null>(null)
+  const [startPointId, setStartPointId] = useState<string | null>(null)
+  const [endPointId, setEndPointId] = useState<string | null>(null)
   const [endPoint, setEndPoint] = useState<LatLngTuple | null>(null)
   const [rideState, setRideState] = useState<RideState>('noStartPoint')
+  const [rideStartTime, setRideStartTime] = useState<number | null>(null)
+  const [rideEndTime, setRideEndTime] = useState<number | null>(null)
+
+  const [routeLength, setRouteLength] = useState<number | null>(null)
   const { address, isConnected } = useAccount()
   const { disconnect } = useDisconnect()
   const GestureHandlingSetter = () => {
@@ -106,6 +113,8 @@ const Map = ({ position }: { position: LatLngTuple }) => {
     }
     throw new Error('startPoint or position is null')
   }
+  console.log('routeLength', routeLength)
+  console.log('endTime', rideEndTime)
 
   return (
     <div>
@@ -169,8 +178,11 @@ const Map = ({ position }: { position: LatLngTuple }) => {
               >
                 <PlaceMenu
                   name={loc.name}
+                  id={loc.id}
                   openLatLng={openMarkerPosition}
                   setStartPoint={setStartPoint}
+                  setEndPointId={setEndPointId}
+                  setStartPointId={setStartPointId}
                   startPoint={startPoint}
                   setEndPoint={setEndPoint}
                   endPoint={endPoint}
@@ -181,7 +193,11 @@ const Map = ({ position }: { position: LatLngTuple }) => {
           )
         })}
         {startPoint && endPoint && (
-          <RoutineMachine startPoint={startPoint} endPoint={endPoint} />
+          <RoutineMachine
+            startPoint={startPoint}
+            endPoint={endPoint}
+            setRouteLength={setRouteLength}
+          />
         )}
       </MapContainer>
       <TopModal handleMarker={onClickShowMarker} />
@@ -201,8 +217,14 @@ const Map = ({ position }: { position: LatLngTuple }) => {
         rideState={rideState}
         startPoint={startPoint}
         endPoint={endPoint}
+        startPointId={startPointId}
+        endPointId={endPointId}
         within20m={within20m}
         setRideState={setRideState}
+        setStartTime={setRideStartTime}
+        setRideEndTime={setRideEndTime}
+        rideStartTime={rideStartTime}
+        routeLength={routeLength}
       />
     </div>
   )

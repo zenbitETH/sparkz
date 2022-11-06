@@ -2,6 +2,7 @@
 import { create } from 'ipfs-http-client';
 import { useState } from 'react';
 import { XIcon } from '@heroicons/react/solid';
+import { usePrepareContractWrite } from 'wagmi';
 
 const projectId = '2H9PlkW4WSouTWsmpuTOFFBGwB3';
 
@@ -49,6 +50,13 @@ export default function addPlace() {
       const added = await client.add(JSON.stringify(metadata))
       const url = `https://infura-ipfs.io/ipfs/${added.path}`
       console.log('The uploaded metadata ipfs link is ', url)
+      const { config } = usePrepareContractWrite({
+        addressOrName: '',
+        contractInterface: [],
+        functionName: 'addLocation',
+        args: [],
+        chainId: 5,
+      });
     }
 
     return (

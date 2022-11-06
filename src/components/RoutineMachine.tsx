@@ -2,8 +2,12 @@ import L from 'leaflet'
 import { createControlComponent } from '@react-leaflet/core'
 import 'leaflet-routing-machine'
 
-const createRoutineMachineLayer = ({ startPoint, endPoint }) => {
-  const instance = L.Routing.control({
+const createRoutineMachineLayer = ({
+  startPoint,
+  endPoint,
+  setRouteLength,
+}) => {
+  const routeControl = L.Routing.control({
     waypoints: [
       L.latLng(startPoint[0], startPoint[1]),
       L.latLng(endPoint[0], endPoint[1]),
@@ -22,7 +26,13 @@ const createRoutineMachineLayer = ({ startPoint, endPoint }) => {
     },
   })
 
-  return instance
+  return routeControl.on('routesfound', function (e) {
+    const routes = e.routes
+    const summary = routes[0].summary
+    // alert distance and time in km and minutes)
+    console.log(summary, 'meters')
+    setRouteLength(summary.totalDistance)
+  })
 }
 
 const RoutingMachine = createControlComponent(createRoutineMachineLayer)
