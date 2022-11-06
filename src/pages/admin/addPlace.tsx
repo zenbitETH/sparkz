@@ -2,7 +2,7 @@
 import { create } from 'ipfs-http-client';
 import { useState } from 'react';
 import { XIcon } from '@heroicons/react/solid';
-import { usePrepareContractWrite } from 'wagmi';
+import { usePrepareContractWrite, useContractWrite } from 'wagmi';
 
 const projectId = '2H9PlkW4WSouTWsmpuTOFFBGwB3';
 
@@ -18,6 +18,17 @@ const client = create({
         authorization: auth,
     },
 });
+
+const args = []
+const { config } = usePrepareContractWrite({
+  address: '0xd66a0156935684bd2b1Cb6a2aBE9c6B1c26b94CA',
+  abi: abi,
+  functionName: 'mint',
+  args,
+  chainId: 80001,
+});
+
+const { data: contractWriteData, isLoading: isWriteLoading, isSuccess, write } = useContractWrite(config);
 
 export default function addPlace() {
   const [inputs, setInputs] = useState<Record<string,any>>({});
