@@ -91,7 +91,7 @@ export default function Modal({
   ]
 
   const { config } = usePrepareContractWrite({
-    address: '',
+    address: '0xd66a0156935684bd2b1Cb6a2aBE9c6B1c26b94CA',
     abi: [],
     functionName: 'registerJourney',
     args: payload,
