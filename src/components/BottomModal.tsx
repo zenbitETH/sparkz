@@ -1,6 +1,7 @@
 import { LatLngTuple } from 'leaflet'
 import Link from 'next/link'
 import { useState } from 'react'
+import { usePrepareContractWrite } from 'wagmi'
 import { type RideState } from './Map'
 
 //type Dictionary = keyof RideState
@@ -22,7 +23,9 @@ interface Props {
 export default function Modal({
   rideState,
   rideStartTime,
+  startPointId,
   startPoint,
+  endPointId,
   endPoint,
   within20m,
   setRideState,
@@ -64,6 +67,27 @@ export default function Modal({
   } else {
     bgColor = 'bg-purple-500'
   }
+  const handleConfirmRideButtonClick = async () => {
+    const args = [
+      0,
+      1,
+      new Date().toISOString(),
+      2,
+      new Date().toISOString(),
+      0,
+      0,
+    ]
+  }
+
+  const SendData = async (args) => {
+    await usePrepareContractWrite({
+      address: '',
+      abi: [],
+      functionName: 'registerJourney',
+      args,
+      chainId: 5,
+    })
+  }
 
   return (
     <div
@@ -82,7 +106,31 @@ export default function Modal({
           setRideState('enRoute')
         } else if (rideState === 'enRoute') {
           setRideState('arrived')
-          setRideEndTime(rideStartTime + routeLength / BIKE_SPEED)
+          const rideEndTime = Math.floor(
+            rideStartTime + routeLength / BIKE_SPEED
+          )
+          setRideEndTime(rideEndTime)
+
+          // call here
+          const payload = [
+            startPointId,
+            rideStartTime,
+            endPointId,
+            rideEndTime,
+            routeLength,
+            routeLength,
+          ]
+          console.log('===========================')
+          console.log('===========================')
+          console.log('===========================')
+          console.log('===========================')
+          console.log('payload', payload)
+          console.log('===========================')
+          try {
+            SendData(payload)
+          } catch (e) {
+            console.log(e)
+          }
         }
       }}
     >
