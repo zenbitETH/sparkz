@@ -95,7 +95,7 @@ export default function Modal({
     abi: [],
     functionName: 'registerJourney',
     args: payload,
-    chainId: 5,
+    chainId: 80001,
   })
 
   const {
