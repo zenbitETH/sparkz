@@ -9,8 +9,6 @@ const projectSecret = '84b9d3caccfcc2ee184864d597982b70';
 
 const auth = 'Basic ' + Buffer.from(projectId + ':' + projectSecret).toString('base64');
 
-
-
 const client = create({
     host: 'ipfs.infura.io',
     port: 5001,
@@ -26,7 +24,7 @@ export default function addPlace() {
     async function onChange(e: any) {
       const file = e.target.files[0]
       try {
-           // upload image to ipfs
+        // upload image to ipfs
         const added = await client.add(file)
         const url = `https://infura-ipfs.io/ipfs/${added.path}`
         updateFileUrl(url)
