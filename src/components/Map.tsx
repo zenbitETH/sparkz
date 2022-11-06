@@ -47,6 +47,15 @@ var userIcon = new L.Icon({
 const Map = ({ position }: { position: LatLngTuple }) => {
   const router = useRouter()
   const [startPoint, setStartPoint] = useState<LatLngTuple | null>(null)
+  const [rideState, setRideState] = useState<
+    | 'selectDest'
+    | 'confirmRide'
+    | 'tooFar'
+    | 'atOrigin'
+    | 'enRoute'
+    | 'arrived'
+    | null
+  >
   const { address, isConnected } = useAccount()
   const { disconnect } = useDisconnect()
   const GestureHandlingSetter = () => {
