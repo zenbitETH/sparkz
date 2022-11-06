@@ -1,10 +1,12 @@
 import { LatLng, LatLngTuple } from 'leaflet'
 import { useMap } from 'react-leaflet'
 import { RideState } from './Map'
-import { usePrepareContractWrite } from 'wagmi'
+import { useAccount, useContractRead, usePrepareContractWrite } from 'wagmi'
 import { locationMapping } from '../constants/constants'
 import verificationJson from '../constants/verification_key.json' assert { type: 'json' }
 import { useState } from 'react'
+import sparkZjson from '../constants/sparkZ.json' assert { type: 'json' }
+
 
 enum JourneyType {
   Ride,
@@ -38,6 +40,12 @@ const PlaceMenu = ({
   endPoint,
   setRideState,
 }: Props) => {
+  const { data, isError, isLoading } = useContractRead({
+    address: '0xd66a0156935684bd2b1Cb6a2aBE9c6B1c26b94CA',
+    abi: sparkZjson.abi,
+    functionName: 'locationIdToLocationDetail',
+    args: [id],
+  })
   const [message, setMessage] = useState<String>('')
   const map = useMap()
   const handleButtonClick = (journey: number) => {
@@ -150,11 +158,12 @@ const PlaceMenu = ({
             Attack
           </button>
         </div>
-        <div className='grid grid-cols-2 text-center text-lg'>
-          <div className=' '> 1245 ✨</div>
-          <div className=' '> 123 🌑</div>
+        <div className='grid grid-cols-3 text-center text-lg'>
+        {data && data.sparkz && <div className=' '>{`${data.sparkz}  ✨`}</div>}
+        {data && data.shadowz && <div className=' '>{`${data.shadowz}  🌑`}</div>}
+        {data && data.level && <div className=' '>{`${data.level} 🎖`}</div>}
         </div>
-        <div className='text-center text-lg'>owner: 0x1345...abc</div>
+        {data && data.owner && <div className='text-center text-lg'>{`owner: ${shortHandAddress(data.owner)}`}</div>}
       </div>
       {message && message.length && (
         <div className='right-30 z-100 absolute top-80 rounded-full border border-purple-500 bg-purple-200 p-10 text-lg text-black'>
@@ -163,6 +172,17 @@ const PlaceMenu = ({
       )}
     </>
   )
+}
+
+
+function shortHandAddress(address: string) {
+  if (address?.length) {
+    return `${address.substring(0, 5)}...${address.substring(
+      address.length - 6,
+      address.length
+    )}`
+  }
+  return ''
 }
 
 export default PlaceMenu
