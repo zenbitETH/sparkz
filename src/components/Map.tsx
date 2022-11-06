@@ -12,6 +12,7 @@ import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css'
 import 'leaflet-defaulticon-compatibility'
+import BottomModal from './BottomModal'
 import { useRef, useState } from 'react'
 import {
   useAccount,
@@ -26,7 +27,7 @@ import { useRouter } from 'next/router'
 import { GestureHandling } from 'leaflet-gesture-handling'
 import userMarkerImg from '../../public/user-marker.png'
 
-import Modal from './Modal'
+import TopModal from './TopModal'
 
 import PlaceMenu from './PlaceMenu'
 import { XIcon } from '@heroicons/react/solid'
@@ -128,7 +129,7 @@ const Map = ({ position }: { position: LatLngTuple }) => {
           )
         })}
       </MapContainer>
-      <Modal handleMarker={onClickShowMarker} />
+      <TopModal handleMarker={onClickShowMarker} />
       {address?.length && (
         <button
           className='align-center fixed top-2 right-2 flex h-12 flex-row justify-center rounded-full border border-gray-400 bg-purple-400 p-4 text-center text-xs text-white'
@@ -141,6 +142,7 @@ const Map = ({ position }: { position: LatLngTuple }) => {
           <XIcon className='my-auto ml-1 h-3 w-3' />
         </button>
       )}
+      <BottomModal />
     </div>
   )
 }
