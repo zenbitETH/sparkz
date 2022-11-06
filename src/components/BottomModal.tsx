@@ -1,7 +1,7 @@
 import { LatLngTuple } from 'leaflet'
 import Link from 'next/link'
 import { useState } from 'react'
-import { usePrepareContractWrite } from 'wagmi'
+import { usePrepareContractWrite, useContractWrite } from 'wagmi'
 import { type RideState } from './Map'
 
 //type Dictionary = keyof RideState
@@ -78,16 +78,28 @@ export default function Modal({
       0,
     ]
   }
+  const rideEndTime = Math.floor(
+    rideStartTime + routeLength / BIKE_SPEED)
 
-  const SendData = async (args) => {
-    await usePrepareContractWrite({
-      address: '',
-      abi: [],
-      functionName: 'registerJourney',
-      args,
-      chainId: 5,
-    })
-  }
+  const payload = [
+    startPointId,
+    rideStartTime,
+    endPointId,
+    rideEndTime,
+    routeLength,
+    routeLength,
+  ]
+  
+  const { config } = usePrepareContractWrite({
+    address: '',
+    abi: [],
+    functionName: 'registerJourney',
+    args: payload,
+    chainId: 5,
+  })
+
+  const { data: contractWriteData, isLoading: isWriteLoading, isSuccess, write } = useContractWrite(config);
+
 
   return (
     <div
@@ -111,26 +123,7 @@ export default function Modal({
           )
           setRideEndTime(rideEndTime)
 
-          // call here
-          const payload = [
-            startPointId,
-            rideStartTime,
-            endPointId,
-            rideEndTime,
-            routeLength,
-            routeLength,
-          ]
-          console.log('===========================')
-          console.log('===========================')
-          console.log('===========================')
-          console.log('===========================')
-          console.log('payload', payload)
-          console.log('===========================')
-          try {
-            SendData(payload)
-          } catch (e) {
-            console.log(e)
-          }
+          write?.()
         }
       }}
     >
