@@ -46,6 +46,7 @@ var userIcon = new L.Icon({
 
 const Map = ({ position }: { position: LatLngTuple }) => {
   const router = useRouter()
+  const [startPoint, setStartPoint] = useState<LatLngTuple | null>(null)
   const { address, isConnected } = useAccount()
   const { disconnect } = useDisconnect()
   const GestureHandlingSetter = () => {
@@ -117,8 +118,10 @@ const Map = ({ position }: { position: LatLngTuple }) => {
               position={position}
               key={loc.name}
               eventHandlers={{
-                click: (e) => {
-                  console.log(e)
+                click: ({ latlng: { lat, lng } }) => {
+                  setStartPoint([lat, lng])
+                  //console.log('lat', lat)
+                  //console.log('lng', lng)
                 },
               }}
             >
@@ -142,7 +145,10 @@ const Map = ({ position }: { position: LatLngTuple }) => {
           <XIcon className='my-auto ml-1 h-3 w-3' />
         </button>
       )}
-      <BottomModal rideState='arrived' />
+      <BottomModal
+        rideState={startPoint ? 'atOrigin' : 'selectDest'}
+        startPoint={startPoint}
+      />
     </div>
   )
 }
