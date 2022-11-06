@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { usePrepareContractWrite, useContractWrite } from 'wagmi'
 import { type RideState } from './Map'
-import sparkZData from '../../artifacts/contracts/Sparkz.sol/sparkZ.json' assert { type: 'json' }
+import sparkZData from '../constants/sparkZ.json' assert { type: 'json' }
 
 //type Dictionary = keyof RideState
 interface Dictionary {
