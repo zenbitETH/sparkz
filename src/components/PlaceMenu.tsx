@@ -3,7 +3,7 @@ import { useMap } from 'react-leaflet'
 import { RideState } from './Map'
 // @ts-ignore
 import snarkjs from 'snarkjs'
-// import fs from 'fs'
+import fs from 'fs'
 import { usePrepareContractWrite } from 'wagmi'
 import { locationMapping } from '../constants/constants'
 
@@ -13,30 +13,37 @@ enum JourneyType {
   Attack,
 }
 
-// async function validateLocation(locationName: string, latitude: string, longitude: string) : Promise<boolean> {
-//     const { proof, publicSignals } = await snarkjs.groth16.fullProve(
-//       {
-//         "locationName": locationName,
-//         "latitude": latitude,
-//         "longitude": longitude,
-//         "range": '100'
-//     }
-//       , "../../circuits/LocationProof_js/LocationProof.wasm", "../../circuits/LocationProof_0000.zkey");
+async function validateLocation(
+  locationName: string,
+  latitude: string,
+  longitude: string
+): Promise<boolean> {
+  const { proof, publicSignals } = await snarkjs.groth16.fullProve(
+    {
+      locationName: locationName,
+      latitude: latitude,
+      longitude: longitude,
+      range: '100',
+    },
+    '../../circuits/LocationProof_js/LocationProof.wasm',
+    '../../circuits/LocationProof_0000.zkey'
+  )
 
-//     console.log("Proof: ");
-//     console.log(JSON.stringify(proof, null, 1));
-//     //@ts-ignore
-//     const vKey = JSON.parse(fs.readFileSync("../../circuits/verification_key.json"));
+  console.log('Proof: ')
+  console.log(JSON.stringify(proof, null, 1))
+  //@ts-ignore
+  const vKey = JSON.parse(
+    fs.readFileSync('../../circuits/verification_key.json')
+  )
 
-//     const res = await snarkjs.groth16.verify(vKey, publicSignals, proof);
+  const res = await snarkjs.groth16.verify(vKey, publicSignals, proof)
 
-//     if (res === true) {
-//       return true
-//     } else {
-//       return false
-//     }
-
-// }
+  if (res === true) {
+    return true
+  } else {
+    return false
+  }
+}
 
 interface Props {
   name: string
@@ -117,6 +124,63 @@ const PlaceMenu = ({
     } else {
       console.log('You are not verified')
     }
+  }
+
+  const handleRideButtonClick = async () => {
+    //zoom out
+    map.setView([37.785910776551354, -122.44279861450197], 13)
+    if (!startPoint) {
+      setStartPoint(openLatLng)
+      setRideState('noEndPoint')
+    } else if (
+      (!endPoint && startPoint[0] !== openLatLng[0]) ||
+      startPoint[1] !== openLatLng[1]
+    ) {
+      setEndPoint(openLatLng)
+      setRideState('rideChosen')
+    }
+    let locationHash
+    const latitude = openLatLng[0] * 100000
+    const longitude = openLatLng[1] * 100000
+    for (const mapping of Object.keys(locationMapping)) {
+      // @ts-ignore
+      if (
+        locationMapping[mapping].lat === latitude &&
+        locationMapping[mapping].long === longitude
+      ) {
+        locationHash = mapping
+        break
+      }
+    }
+    if (!locationHash) {
+      throw new Error('Could not find location hash')
+    }
+    // const result = await validateLocation(locationHash, latitude.toString(), longitude.toString())
+    const result = true
+    if (result) {
+      console.log('You are verified')
+    } else {
+      console.log('You are not verified')
+    }
+  }
+
+  const handleConfirmRideButtonClick = async () => {
+    const args = [
+      0,
+      1,
+      new Date().toISOString(),
+      2,
+      new Date().toISOString(),
+      0,
+      0,
+    ]
+    const result = await usePrepareContractWrite({
+      address: '',
+      abi: [],
+      functionName: 'registerJourney',
+      args,
+      chainId: 5,
+    })
   }
 
   return (
