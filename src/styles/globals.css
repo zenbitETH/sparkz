@@ -29,6 +29,10 @@
   border: #8f4ee1 3px solid;
 }
 
+.leaflet-control-container .leaflet-routing-container-hide {
+  display: none;
+}
+
 .card0 {
   @apply mx-5  my-20 
   grid
