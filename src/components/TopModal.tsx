@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { useAccount, useContractRead } from 'wagmi'
-import sparkZjson from '../constants/sparkZ.json'
+import sparkZjson from '../constants/sparkZ.json' assert { type: 'json' }
 
 export default function Modal(props) {
   const { address, isConnected } = useAccount()
@@ -8,7 +8,7 @@ export default function Modal(props) {
     address: '0xd66a0156935684bd2b1Cb6a2aBE9c6B1c26b94CA',
     abi: sparkZjson.abi,
     functionName: 'addressToUserDetail',
-    args:[address]
+    args: [address],
   })
   return (
     <div
