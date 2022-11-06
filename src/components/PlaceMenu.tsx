@@ -1,6 +1,34 @@
 import { LatLng } from 'leaflet'
 import { useMap } from 'react-leaflet'
 import { RideState } from './Map'
+// @ts-ignore
+import snarkjs from 'snarkjs'
+import fs from 'fs'
+
+async function validateLocation(locationName: string, latitude: string, longitude: string, range: string) {
+    const { proof, publicSignals } = await snarkjs.groth16.fullProve(
+      {
+        "locationName": locationName,
+        "latitude": latitude,
+        "longitude": longitude,
+        "range": range
+    }
+      , "../../circuits/LocationProof_js/LocationProof.wasm", "../../circuits/LocationProof_0001.zkey");
+
+    console.log("Proof: ");
+    console.log(JSON.stringify(proof, null, 1));
+    //@ts-ignore
+    const vKey = JSON.parse(fs.readFileSync("../../circuits/verification_key.json"));
+
+    const res = await snarkjs.groth16.verify(vKey, publicSignals, proof);
+
+    if (res === true) {
+        console.log("Verification OK");
+    } else {
+        console.log("Invalid proof");
+    }
+
+}
 
 interface Props {
   name: string
