@@ -1,8 +1,29 @@
 import { WorldIDWidget } from '@worldcoin/id'
 import { useState, useEffect } from 'react';
+import { usePrepareContractWrite } from 'wagmi';
+import sparkZAbi from '../../constants/sparkZ.json'
 
 export default function newPlayer() {
     const [inputs, setInputs] = useState<Record<string,any>>({});
+
+    const handleChange = (event: any) => {
+      const name = event.target.name;
+      const value = event.target.value;
+      setInputs((values: Record<string, any>)  => ({...values, [name]: value}))
+    }
+  
+    const handleSubmit = async () => {
+      console.log('writing')
+      await write?.()
+    }
+
+    const { config } = usePrepareContractWrite({
+      address: '0xd66a0156935684bd2b1Cb6a2aBE9c6B1c26b94CA',
+      abi: sparkZAbi.abi,
+      functionName: 'addLocation',
+      args,
+      chainId: 80001,
+    });
 
     return (
         <div className="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-night-100 sm:items-center py-4 sm:pt-0 font-exo">
@@ -12,7 +33,7 @@ export default function newPlayer() {
             <div className="text-white text-4xl mb-10">🚴 New Player</div>
               <div className="text-left text-xl">
                 <label className="text-white">Player</label>
-                <input type="text" name="playerName"  placeholder="Choose a name or a tag"  className="formInput mt-2 mb-5" 
+                <input type="text" name="playerName"  placeholder="Choose a name or a tag" value={inputs.playerName || ""} className="formInput mt-2 mb-5" 
                 />
                 <div className="grid grid-cols-2 gap-5">
                   <div>
