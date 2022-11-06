@@ -81,15 +81,29 @@ export default function Modal({
   }
   const rideEndTime = Math.floor(rideStartTime + routeLength / BIKE_SPEED)
 
-  const SendData = async (args) => {
-    await usePrepareContractWrite({
-      address: '',
-      abi: [],
-      functionName: 'registerJourney',
-      args,
-      chainId: 5,
-    })
-  }
+  const payload = [
+    startPointId,
+    rideStartTime,
+    endPointId,
+    rideEndTime,
+    routeLength,
+    routeLength,
+  ]
+
+  const { config } = usePrepareContractWrite({
+    address: '',
+    abi: [],
+    functionName: 'registerJourney',
+    args: payload,
+    chainId: 5,
+  })
+
+  const {
+    data: contractWriteData,
+    isLoading: isWriteLoading,
+    isSuccess,
+    write,
+  } = useContractWrite(config)
 
   const payload = [
     1,
