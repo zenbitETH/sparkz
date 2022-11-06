@@ -3,7 +3,7 @@ import { create } from 'ipfs-http-client'
 import { useState, useEffect } from 'react'
 import { XIcon } from '@heroicons/react/solid'
 import { usePrepareContractWrite, useContractWrite } from 'wagmi'
-import sparkZjson from '../../constants/sparkZ.json'
+import sparkZjson from '../../constants/sparkZ.json' assert { type: 'json' }
 
 export default function addPlace() {
   const [inputs, setInputs] = useState<Record<string, any>>({
