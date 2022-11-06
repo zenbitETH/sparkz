@@ -56,7 +56,6 @@ export default function Modal({
   } else if (rideState === 'rideChosen') {
     bgColor = 'bg-purple-500'
     cursor = 'cursor-pointer'
-    console.log('in ride chosen')
   } else if (rideState === 'tooFarFromOrigin') {
     bgColor = 'bg-red-500'
   } else if (rideState === 'atOrigin') {
@@ -98,6 +97,8 @@ export default function Modal({
     }
   })()
 
+  //console.log('payload', payload)
+
   const { config } = usePrepareContractWrite({
     address: '0xd66a0156935684bd2b1Cb6a2aBE9c6B1c26b94CA',
     abi: sparkZData.abi,
@@ -106,17 +107,11 @@ export default function Modal({
     chainId: 80001,
   })
 
-  console.log('==============================')
-  console.log('==============================')
-  console.log('==============================')
-  console.log('==============================')
-  console.log(payload)
-
   const {
     data: contractWriteData,
     isLoading: isWriteLoading,
     isSuccess,
-    Error,
+    //Error,
     write,
   } = useContractWrite(config)
   console.log('')
@@ -141,8 +136,6 @@ export default function Modal({
             rideStartTime + routeLength / BIKE_SPEED
           )
           setRideEndTime(rideEndTime)
-          console.log('55555555555555555555555555555555555555555555555555')
-          console.log('about to write')
           await write?.()
         }
       }}
