@@ -112,6 +112,38 @@ export default function Modal({
     Error,
     write,
   } = useContractWrite(config)
+
+  const payload = [
+    1,
+    startPointId - 1,
+    rideStartTime,
+    endPointId - 1,
+    rideEndTime,
+    parseInt(routeLength),
+    parseInt(routeLength),
+  ]
+
+  const { config } = usePrepareContractWrite({
+    address: '0xd66a0156935684bd2b1Cb6a2aBE9c6B1c26b94CA',
+    abi: sparkZData.abi,
+    functionName: 'registerJourney',
+    args: payload.map((arg) => arg?.toString()),
+    chainId: 80001,
+  })
+
+  console.log('==============================')
+  console.log('==============================')
+  console.log('==============================')
+  console.log('==============================')
+  console.log(payload)
+
+  const {
+    data: contractWriteData,
+    isLoading: isWriteLoading,
+    isSuccess,
+    Error,
+    write,
+  } = useContractWrite(config)
   console.log('')
   return (
     <div

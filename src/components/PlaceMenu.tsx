@@ -120,6 +120,63 @@ const PlaceMenu = ({
     }
   }
 
+  const handleRideButtonClick = async () => {
+    //zoom out
+    map.setView([37.785910776551354, -122.44279861450197], 13)
+    if (!startPoint) {
+      setStartPoint(openLatLng)
+      setRideState('noEndPoint')
+    } else if (
+      (!endPoint && startPoint[0] !== openLatLng[0]) ||
+      startPoint[1] !== openLatLng[1]
+    ) {
+      setEndPoint(openLatLng)
+      setRideState('rideChosen')
+    }
+    let locationHash
+    const latitude = openLatLng[0] * 100000
+    const longitude = openLatLng[1] * 100000
+    for (const mapping of Object.keys(locationMapping)) {
+      // @ts-ignore
+      if (
+        locationMapping[mapping].lat === latitude &&
+        locationMapping[mapping].long === longitude
+      ) {
+        locationHash = mapping
+        break
+      }
+    }
+    if (!locationHash) {
+      throw new Error('Could not find location hash')
+    }
+    // const result = await validateLocation(locationHash, latitude.toString(), longitude.toString())
+    const result = true
+    if (result) {
+      console.log('You are verified')
+    } else {
+      console.log('You are not verified')
+    }
+  }
+
+  const handleConfirmRideButtonClick = async () => {
+    const args = [
+      0,
+      1,
+      new Date().toISOString(),
+      2,
+      new Date().toISOString(),
+      0,
+      0,
+    ]
+    const result = await usePrepareContractWrite({
+      address: '',
+      abi: [],
+      functionName: 'registerJourney',
+      args,
+      chainId: 5,
+    })
+  }
+
   return (
     <div className='w-1000 grid gap-5 font-exo capitalize text-white'>
       <div className='text-center text-xl'>{name}</div>
