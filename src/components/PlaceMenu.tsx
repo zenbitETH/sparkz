@@ -7,7 +7,6 @@ import verificationJson from '../constants/verification_key.json' assert { type:
 import { useState } from 'react'
 import sparkZjson from '../constants/sparkZ.json' assert { type: 'json' }
 
-
 enum JourneyType {
   Ride,
   Move,
@@ -38,6 +37,7 @@ const PlaceMenu = ({
   startPoint,
   setJourney,
   endPoint,
+  journey,
   setRideState,
 }: Props) => {
   const { data, isError, isLoading } = useContractRead({
@@ -50,6 +50,7 @@ const PlaceMenu = ({
   const map = useMap()
   const handleButtonClick = (journey: number) => {
     //zoom out
+    setJourney(journey)
     map.setView([37.785910776551354, -122.44279861450197], 13)
     if (!startPoint) {
       setStartPoint(openLatLng)
@@ -59,7 +60,6 @@ const PlaceMenu = ({
       (!endPoint && startPoint[0] !== openLatLng[0]) ||
       startPoint[1] !== openLatLng[1]
     ) {
-      setJourney(journey)
       setEndPoint(openLatLng)
       setEndPointId(id)
       setRideState('rideChosen')
@@ -69,6 +69,7 @@ const PlaceMenu = ({
   const handleRideButtonClick = async (journey: number) => {
     //zoom out
     map.setView([37.785910776551354, -122.44279861450197], 13)
+    setJourney(journey)
     if (!startPoint) {
       setStartPoint(openLatLng)
       setStartPointId(id)
@@ -77,7 +78,6 @@ const PlaceMenu = ({
       (!endPoint && startPoint[0] !== openLatLng[0]) ||
       startPoint[1] !== openLatLng[1]
     ) {
-      setJourney(journey)
       setEndPoint(openLatLng)
       setEndPointId(id)
       setRideState('rideChosen')
@@ -119,8 +119,6 @@ const PlaceMenu = ({
       '/LocationProof_0001.zkey'
     )
 
-    console.log('Proof: ')
-
     await new Promise((resolve) => setTimeout(() => resolve('Done'), 3000))
     setMessage('Verifying proof...')
     //@ts-ignore
@@ -139,31 +137,46 @@ const PlaceMenu = ({
         <div className='text-center text-xl'>{name}</div>
         {/* Buttons Row */}
         <div className='grid w-full grid-cols-3 gap-5 text-center'>
-          <button
-            onClick={()=>handleRideButtonClick(0)}
-            className='w-full rounded-xl border px-5 py-3 lg:text-lg'
-          >
-            Ride
-          </button>
-          <button
-            onClick={()=>handleButtonClick(1)}
-            className='w-full rounded-xl border px-5 py-3 lg:text-lg'
-          >
-            Move
-          </button>
-          <button
-            onClick={()=>handleButtonClick(2)}
-            className='w-full rounded-xl border px-5 py-3 lg:text-lg'
-          >
-            Attack
-          </button>
+          {console.log('journey', journey)}
+          {(journey === null || journey === 0) && (
+            <button
+              onClick={() => handleRideButtonClick(0)}
+              className='w-full rounded-xl border px-5 py-3 lg:text-lg'
+            >
+              Ride
+            </button>
+          )}
+          {(journey === null || journey === 1) && (
+            <button
+              onClick={() => handleButtonClick(1)}
+              className='w-full rounded-xl border px-5 py-3 lg:text-lg'
+            >
+              Move
+            </button>
+          )}
+          {(journey === null || journey === 2) && (
+            <button
+              onClick={() => handleButtonClick(2)}
+              className='w-full rounded-xl border px-5 py-3 lg:text-lg'
+            >
+              Attack
+            </button>
+          )}
         </div>
         <div className='grid grid-cols-3 text-center text-lg'>
-        {data && data.sparkz && <div className=' '>{`${data.sparkz}  ✨`}</div>}
-        {data && data.shadowz && <div className=' '>{`${data.shadowz}  🌑`}</div>}
-        {data && data.level && <div className=' '>{`${data.level} 🎖`}</div>}
+          {data && data.sparkz && (
+            <div className=' '>{`${data.sparkz}  ✨`}</div>
+          )}
+          {data && data.shadowz && (
+            <div className=' '>{`${data.shadowz}  🌑`}</div>
+          )}
+          {data && data.level && <div className=' '>{`${data.level} 🎖`}</div>}
         </div>
-        {data && data.owner && <div className='text-center text-lg'>{`owner: ${shortHandAddress(data.owner)}`}</div>}
+        {data && data.owner && (
+          <div className='text-center text-lg'>{`owner: ${shortHandAddress(
+            data.owner
+          )}`}</div>
+        )}
       </div>
       {message && message.length && (
         <div className='right-30 z-100 absolute top-80 rounded-full border border-purple-500 bg-purple-200 p-10 text-lg text-black'>
@@ -173,7 +186,6 @@ const PlaceMenu = ({
     </>
   )
 }
-
 
 function shortHandAddress(address: string) {
   if (address?.length) {

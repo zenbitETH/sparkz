@@ -189,6 +189,7 @@ const Map = ({ position }: { position: LatLngTuple }) => {
                   setEndPoint={setEndPoint}
                   endPoint={endPoint}
                   setRideState={setRideState}
+                  journey={journey}
                 />
               </Popup>
             </Marker>
