@@ -6,6 +6,7 @@ import snarkjs from 'snarkjs'
 // import fs from 'fs'
 import { usePrepareContractWrite } from 'wagmi'
 import { locationMapping } from '../constants/constants'
+import * as fs from 'fs';
 
 enum JourneyType {
   Ride,

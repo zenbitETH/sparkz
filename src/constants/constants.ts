@@ -72,3 +72,21 @@ export const locationMapping = {
         long: "12241251"
     },
 }
+
+const nameToPlaceType = {
+    "⛲ Public Park": 0,
+    "🛹 Skate Park": 1,
+    "⚽ Soccer Field": 2,
+    "🏀 Basket Court": 3,
+    "😄 Playground": 4,
+    "🏋️‍♀️ Outdoor Gym": 5,
+    "🎭 Art Gallery / Museum": 6,
+    "🏟️ Stadium": 7,
+    "🏖️ Beach": 8,
+    "♻️ Recycling Deposit": 9,
+    "🚏 Bus stop": 10,
+    "📚 Library": 11,
+    "🎓 University": 12,
+    "⛪ Church or Temple": 13,
+    
+}
