@@ -13,39 +13,6 @@ enum JourneyType {
   Attack,
 }
 
-<<<<<<< HEAD
-async function validateLocation(
-  locationName: string,
-  latitude: string,
-  longitude: string
-): Promise<boolean> {
-  const { proof, publicSignals } = await snarkjs.groth16.fullProve(
-    {
-      locationName: locationName,
-      latitude: latitude,
-      longitude: longitude,
-      range: '100',
-    },
-    '../../circuits/LocationProof_js/LocationProof.wasm',
-    '../../circuits/LocationProof_0000.zkey'
-  )
-
-  console.log('Proof: ')
-  console.log(JSON.stringify(proof, null, 1))
-  //@ts-ignore
-  const vKey = JSON.parse(
-    fs.readFileSync('../../circuits/verification_key.json')
-  )
-
-  const res = await snarkjs.groth16.verify(vKey, publicSignals, proof)
-
-  if (res === true) {
-    return true
-  } else {
-    return false
-  }
-}
-=======
 // async function validateLocation(locationName: string, latitude: string, longitude: string) : Promise<boolean> {
 //     const { proof, publicSignals } = await snarkjs.groth16.fullProve(
 //       {
@@ -70,7 +37,6 @@ async function validateLocation(
 //     }
 
 // }
->>>>>>> e243fa9 (fix cannot resolve fs)
 
 interface Props {
   name: string
@@ -139,7 +105,6 @@ const PlaceMenu = ({
       ) {
         locationHash = mapping
         break
-<<<<<<< HEAD
       }
     }
     // if (!locationHash) {
@@ -178,13 +143,11 @@ const PlaceMenu = ({
       ) {
         locationHash = mapping
         break
-=======
->>>>>>> 11c3e29 (payload correct)
       }
     }
-    // if (!locationHash) {
-    //   throw new Error('Could not find location hash')
-    // }
+    if (!locationHash) {
+      throw new Error('Could not find location hash')
+    }
     // const result = await validateLocation(locationHash, latitude.toString(), longitude.toString())
     const result = true
     if (result) {
@@ -194,7 +157,6 @@ const PlaceMenu = ({
     }
   }
 
-<<<<<<< HEAD
   const handleConfirmRideButtonClick = async () => {
     const args = [
       0,
@@ -214,8 +176,6 @@ const PlaceMenu = ({
     })
   }
 
-=======
->>>>>>> 11c3e29 (payload correct)
   return (
     <div className='w-1000 grid gap-5 font-exo capitalize text-white'>
       <div className='text-center text-xl'>{name}</div>
