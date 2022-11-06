@@ -15,8 +15,8 @@ export default function Modal(props) {
       id='modal'
       className='fixed left-1/2  z-50 grid h-20 w-full -translate-x-1/2 transform grid-cols-4 items-center rounded-b-xl bg-purple-500 text-center font-exo text-lg  font-bold text-white lg:w-1/2 lg:text-2xl'
     >
-      {data && data.sparkz && <div className=' '>{`${data.sparkz}  ✨`}</div>}
-      {data && data.shadowz && <div className=' '>{`${data.shadowz}  🌑`}</div>}
+      {<div className=' '>{`${data?.sparkz || '$$$$'}  ✨`}</div>}
+      {<div className=' '>{`${data?.shadowz || '$$$$'}  🌑`}</div>}
       <Link
         className=' mr-4 rounded-full border border-gray-400 text-base'
         href='/admin/addPlace'
