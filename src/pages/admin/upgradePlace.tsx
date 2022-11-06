@@ -14,6 +14,7 @@ export default function addPlace() {
   const [args, setArgs] = useState<any>({})
 
   const handleChange = (event: any) => {
+    console.log('event', event)
     const name = event.target.name
     const value = event.target.value
     setInputs((values: Record<string, any>) => ({ ...values, [name]: value }))
