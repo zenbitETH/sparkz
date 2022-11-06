@@ -3,13 +3,18 @@ import { create } from 'ipfs-http-client'
 import { useState, useEffect } from 'react'
 import { XIcon } from '@heroicons/react/solid'
 import { usePrepareContractWrite, useContractWrite } from 'wagmi'
-import sparkZjson from '../../constants/sparkZ.json'
+import sparkZjson from '../../constants/sparkZ.json' assert { type: 'json' }
 
 export default function addPlace() {
-  const [inputs, setInputs] = useState<Record<string, any>>({})
+  const [inputs, setInputs] = useState<Record<string, any>>({
+    locationId: '',
+    shadowz: '',
+    level: '',
+  })
   const [args, setArgs] = useState<any>({})
 
   const handleChange = (event: any) => {
+    console.log('event', event)
     const name = event.target.name
     const value = event.target.value
     setInputs((values: Record<string, any>) => ({ ...values, [name]: value }))

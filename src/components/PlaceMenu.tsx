@@ -3,7 +3,7 @@ import { useMap } from 'react-leaflet'
 import { RideState } from './Map'
 import { usePrepareContractWrite } from 'wagmi'
 import { locationMapping } from '../constants/constants'
-import verificationJson from '../constants/verification_key.json'
+import verificationJson from '../constants/verification_key.json' assert { type: 'json' }
 import { useState } from 'react'
 
 enum JourneyType {
