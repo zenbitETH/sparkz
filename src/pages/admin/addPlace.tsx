@@ -22,7 +22,9 @@ const client = create({
 export default function addPlace() {
   const [inputs, setInputs] = useState<Record<string,any>>({});
     const [fileUrl, updateFileUrl] = useState(``)
-    const [config, setConfig] = useState<any>(null)
+    const [args, setArgs] = useState<any>({
+
+    })
     async function onChange(e: any) {
       const file = e.target.files[0]
       try {
@@ -46,69 +48,66 @@ export default function addPlace() {
     }
   
     const handleSubmit = async () => {
-      const metadata = createMetadata(inputs, fileUrl)
-      // upload metadata to ipfs
-      const added = await client.add(JSON.stringify(metadata))
-      const url = `https://infura-ipfs.io/ipfs/${added.path}`
-      console.log('The uploaded metadata ipfs link is ', url)
-      const { config } = usePrepareContractWrite({
-        address: '',
-        abi: [],
-        functionName: 'addLocation',
-        args: [],
-        chainId: 5,
-      });
+      console.log('writing')
+      await write?.()
     }
 
+    const { config } = usePrepareContractWrite({
+      address: '0xd66a0156935684bd2b1Cb6a2aBE9c6B1c26b94CA',
+      abi: [{
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "_placeType",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "_locationName",
+            "type": "string"
+          },
+          {
+            "internalType": "int256",
+            "name": "_latitude",
+            "type": "int256"
+          },
+          {
+            "internalType": "int256",
+            "name": "_longitude",
+            "type": "int256"
+          },
+          {
+            "internalType": "string",
+            "name": "_ipfsuri",
+            "type": "string"
+          }
+        ],
+        "name": "addLocation",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      }],
+      functionName: 'addLocation',
+      args,
+      chainId: 80001,
+    });
+
     useEffect(() => {
-      const lat = parseInt(inputs.latitude)
-      const long = parseInt(inputs.longitude)
-      const metadata = createMetadata(inputs, fileUrl)
-      const args : any = [0, inputs.placeName, , lat, long, ]
-      const { config } = usePrepareContractWrite({
-        address: '0xd66a0156935684bd2b1Cb6a2aBE9c6B1c26b94CA',
-        abi: [{
-          "inputs": [
-            {
-              "internalType": "uint256",
-              "name": "_placeType",
-              "type": "uint256"
-            },
-            {
-              "internalType": "string",
-              "name": "_locationName",
-              "type": "string"
-            },
-            {
-              "internalType": "int256",
-              "name": "_latitude",
-              "type": "int256"
-            },
-            {
-              "internalType": "int256",
-              "name": "_longitude",
-              "type": "int256"
-            },
-            {
-              "internalType": "string",
-              "name": "_ipfsuri",
-              "type": "string"
-            }
-          ],
-          "name": "addLocation",
-          "outputs": [],
-          "stateMutability": "nonpayable",
-          "type": "function"
-        }],
-        functionName: 'addLocation',
-        args,
-        chainId: 80001,
-      });
-      setConfig(config)
+      const mintFunction = async () => {
+        const lat = parseInt(inputs.latitude)
+        const long = parseInt(inputs.longitude)
+        const metadata = createMetadata(inputs, fileUrl)
+        const added = await client.add(JSON.stringify(metadata))
+        const url = `https://infura-ipfs.io/ipfs/${added.path}`
+        const args : any = ["0", inputs.placeName, lat.toString(), long.toString(), url]
+        setArgs(args)
+      }
+ 
+      mintFunction()
     }, [inputs, fileUrl])
 
-    const { data: contractWriteData, isLoading: isWriteLoading, isSuccess, write } = useContractWrite(config);
-
+    const { data: contractWriteData, isLoading: isWriteLoading, isSuccess, error, write } = useContractWrite(config ? config : {});
+    console.log('error,', error)
     return (
         <div className="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-night-100 sm:items-center py-4 sm:pt-0 font-exo">
       <div className="card0 px-5 max-w-3xl ">
