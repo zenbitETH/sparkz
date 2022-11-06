@@ -3,7 +3,7 @@ import { useMap } from 'react-leaflet'
 import { RideState } from './Map'
 // @ts-ignore
 import snarkjs from 'snarkjs'
-import fs from 'fs'
+// import fs from 'fs'
 import { usePrepareContractWrite } from 'wagmi'
 import { locationMapping } from '../constants/constants'
 
@@ -13,30 +13,30 @@ enum JourneyType {
   Attack
 }
 
-async function validateLocation(locationName: string, latitude: string, longitude: string) : Promise<boolean> {
-    const { proof, publicSignals } = await snarkjs.groth16.fullProve(
-      {
-        "locationName": locationName,
-        "latitude": latitude,
-        "longitude": longitude,
-        "range": '100'
-    }
-      , "../../circuits/LocationProof_js/LocationProof.wasm", "../../circuits/LocationProof_0000.zkey");
+// async function validateLocation(locationName: string, latitude: string, longitude: string) : Promise<boolean> {
+//     const { proof, publicSignals } = await snarkjs.groth16.fullProve(
+//       {
+//         "locationName": locationName,
+//         "latitude": latitude,
+//         "longitude": longitude,
+//         "range": '100'
+//     }
+//       , "../../circuits/LocationProof_js/LocationProof.wasm", "../../circuits/LocationProof_0000.zkey");
 
-    console.log("Proof: ");
-    console.log(JSON.stringify(proof, null, 1));
-    //@ts-ignore
-    const vKey = JSON.parse(fs.readFileSync("../../circuits/verification_key.json"));
+//     console.log("Proof: ");
+//     console.log(JSON.stringify(proof, null, 1));
+//     //@ts-ignore
+//     const vKey = JSON.parse(fs.readFileSync("../../circuits/verification_key.json"));
 
-    const res = await snarkjs.groth16.verify(vKey, publicSignals, proof);
+//     const res = await snarkjs.groth16.verify(vKey, publicSignals, proof);
 
-    if (res === true) {
-      return true
-    } else {
-      return false
-    }
+//     if (res === true) {
+//       return true
+//     } else {
+//       return false
+//     }
 
-}
+// }
 
 interface Props {
   name: string
