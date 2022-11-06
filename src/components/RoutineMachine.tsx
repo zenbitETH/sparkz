@@ -1,6 +1,7 @@
 import L from 'leaflet'
 import { createControlComponent } from '@react-leaflet/core'
 import 'leaflet-routing-machine'
+import { useEffect } from 'react';
 
 const createRoutineMachineLayer = ({ startPoint, endPoint }) => {
   const instance = L.Routing.control({
@@ -21,6 +22,12 @@ const createRoutineMachineLayer = ({ startPoint, endPoint }) => {
       return null
     },
   })
+
+  useEffect(() => {
+    setTimeout(() => {
+      window.resizeTo(window.innerWidth - 1, window.innerHeight -1 )
+    }, 2000)
+  }, [])
 
   return instance
 }

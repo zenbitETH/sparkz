@@ -147,6 +147,7 @@ const Map = ({ position }: { position: LatLngTuple }) => {
               key={loc.name}
               eventHandlers={{
                 click: ({ latlng: { lat, lng } }) => {
+            
                   setOpenMarkerPosition([lat, lng])
                   //console.log('e from marker', e)
                 },
