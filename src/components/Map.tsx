@@ -142,10 +142,19 @@ const Map = ({ position }: { position: LatLngTuple }) => {
           <XIcon className='my-auto ml-1 h-3 w-3' />
         </button>
       )}
-      <BottomModal />
+      <BottomModal rideState='arrived' />
     </div>
   )
 }
+
+// const messageDic: Dictionary = {
+//   selectDest: 'Select a destination',
+//   confirmRide: 'Confirm your ride',
+//   tooFar: 'You are too far from this location',
+//   atOrigin: 'Touch to start your ride',
+//   enRoute: 'Follow the route on screen',
+//   arrived: "You've arrived, touch to finish ride",
+// }
 
 function shortHandAddress(address: string) {
   if (address?.length) {
