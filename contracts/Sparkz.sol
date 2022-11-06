@@ -182,7 +182,7 @@ contract SparkZ is ERC1155 {
         uint256 _shadowz,
         uint256 _level
     ) public {
-        require (_shadowz > _level * 1000, "Not enough shadowz to upgrade the place");
+        require (_shadowz > locationIdToLocationDetail[_locationId].level * 1000, "Not enough shadowz to upgrade the place");
         require (_level > locationIdToLocationDetail[_locationId].level, "Cannot downgrade the level of the place");
         transferShadowz(_locationId, _shadowz, msg.sender);
         locationIdToLocationDetail[_locationId].level = _level;
