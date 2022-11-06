@@ -6,7 +6,11 @@ import { usePrepareContractWrite, useContractWrite } from 'wagmi'
 import sparkZjson from '../../constants/sparkZ.json'
 
 export default function addPlace() {
-  const [inputs, setInputs] = useState<Record<string, any>>({})
+  const [inputs, setInputs] = useState<Record<string, any>>({
+    locationId: '',
+    shadowz: '',
+    level: '',
+  })
   const [args, setArgs] = useState<any>({})
 
   const handleChange = (event: any) => {
