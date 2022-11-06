@@ -13,26 +13,35 @@ import 'leaflet/dist/leaflet.css'
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css'
 import 'leaflet-defaulticon-compatibility'
 import { useRef, useState } from 'react'
-import { useAccount, useConnect, useNetwork, useSignMessage, useEnsAvatar, useEnsName, useDisconnect } from 'wagmi'
-import { useRouter } from 'next/router';
+import {
+  useAccount,
+  useConnect,
+  useNetwork,
+  useSignMessage,
+  useEnsAvatar,
+  useEnsName,
+  useDisconnect,
+} from 'wagmi'
+import { useRouter } from 'next/router'
 import { GestureHandling } from 'leaflet-gesture-handling'
+import userMarkerImg from '../../public/user-marker.png'
 
 import Modal from './Modal'
 
 //import styles from '../../styles/Map.module.scss'
 //import styles from '../../styles/Map.module.scss'
 import PlaceMenu from './PlaceMenu'
-import { XIcon } from '@heroicons/react/solid';
+import { XIcon } from '@heroicons/react/solid'
 
 import locs from '../../locations.json' assert { type: 'json' }
-var greenIcon = new L.Icon({
-  iconUrl:
-    'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+const side = 50
+var userIcon = new L.Icon({
+  iconUrl: '/user-marker.png',
   shadowUrl:
     'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
+  iconSize: [side, side],
+  iconAnchor: [side / 2, side / 2],
+  popupAnchor: [0, -side / 2],
   shadowSize: [41, 41],
 })
 
@@ -46,7 +55,7 @@ var greenIcon = new L.Icon({
 // }
 
 const Map = ({ position }: { position: LatLngTuple }) => {
-  const router = useRouter();
+  const router = useRouter()
   const { address, isConnected } = useAccount()
   const { disconnect } = useDisconnect()
   const GestureHandlingSetter = () => {
@@ -96,7 +105,7 @@ const Map = ({ position }: { position: LatLngTuple }) => {
           subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
         />
         <div className='userLocMarker'>
-          <Marker position={position} icon={greenIcon} ref={markerRef}>
+          <Marker position={position} icon={userIcon} ref={markerRef}>
             <Popup className='userLocPopUp'>
               <PlaceMenu />
             </Popup>
@@ -104,7 +113,6 @@ const Map = ({ position }: { position: LatLngTuple }) => {
         </div>
         {locs.map((loc) => {
           const position = [loc.lat, loc.lon] as LatLngTuple
-          const side = 50
           const icon = new L.Icon({
             iconUrl: loc.img,
             shadowUrl:
@@ -154,26 +162,30 @@ const Map = ({ position }: { position: LatLngTuple }) => {
       </Marker> */}
       </MapContainer>
       <Modal handleMarker={onClickShowMarker} />
-      {address?.length && <button 
-        className="fixed flex flex-row bg-purple-400 h-12 top-2 right-2 text-white rounded-full border border-gray-400 text-xs p-4 text-center align-center justify-center"
-        onClick={ () => {
-          disconnect()
-          router.replace('/home')
-        }}
+      {address?.length && (
+        <button
+          className='align-center fixed top-2 right-2 flex h-12 flex-row justify-center rounded-full border border-gray-400 bg-purple-400 p-4 text-center text-xs text-white'
+          onClick={() => {
+            disconnect()
+            router.replace('/home')
+          }}
         >
-          
-        <div >{shortHandAddress(address!)}</div>
-        <XIcon  className="h-3 w-3 ml-1 my-auto" />
-      </button>}
+          <div>{shortHandAddress(address!)}</div>
+          <XIcon className='my-auto ml-1 h-3 w-3' />
+        </button>
+      )}
     </div>
   )
 }
 
-function shortHandAddress (address: string) {
+function shortHandAddress(address: string) {
   if (address?.length) {
-    return `${address.substring(0,5)}...${address.substring((address.length - 6), address.length)}`
+    return `${address.substring(0, 5)}...${address.substring(
+      address.length - 6,
+      address.length
+    )}`
   }
-return ''
+  return ''
 }
 
 export default Map
