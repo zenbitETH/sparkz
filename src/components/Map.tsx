@@ -44,6 +44,14 @@ var userIcon = new L.Icon({
   popupAnchor: [0, -side / 2],
   shadowSize: [41, 41],
 })
+export type RideState =
+  | 'noStartPoint'
+  | 'noEndPoint'
+  | 'rideChosen'
+  | 'tooFarFromOrigin'
+  | 'atOrigin'
+  | 'enRoute'
+  | 'arrived'
 
 const Map = ({ position }: { position: LatLngTuple }) => {
   const router = useRouter()
@@ -51,15 +59,7 @@ const Map = ({ position }: { position: LatLngTuple }) => {
     useState<LatLngTuple | null>(null)
   const [startPoint, setStartPoint] = useState<LatLngTuple | null>(null)
   const [endPoint, setEndPoint] = useState<LatLngTuple | null>(null)
-  const [rideState, setRideState] = useState<
-    | 'selectDest'
-    | 'confirmRide'
-    | 'tooFar'
-    | 'atOrigin'
-    | 'enRoute'
-    | 'arrived'
-    | null
-  >(null)
+  const [rideState, setRideState] = useState<RideState>('noStartPoint')
   const { address, isConnected } = useAccount()
   const { disconnect } = useDisconnect()
   const GestureHandlingSetter = () => {
@@ -90,6 +90,21 @@ const Map = ({ position }: { position: LatLngTuple }) => {
     //   }
     //console.log(marker.isPopupOpen())
     marker.togglePopup()
+  }
+
+  // calculate whether the users postion is within 20m of the start point
+  const within20m = () => {
+    if (startPoint && position) {
+      const dist = Math.sqrt(
+        (startPoint[0] - position[0]) ** 2 + (startPoint[1] - position[1]) ** 2
+      )
+      //if (dist < 0.0002) {
+      if (dist < 0.02) {
+        return true
+      }
+      return false
+    }
+    throw new Error('startPoint or position is null')
   }
 
   return (
@@ -159,6 +174,7 @@ const Map = ({ position }: { position: LatLngTuple }) => {
                   startPoint={startPoint}
                   setEndPoint={setEndPoint}
                   endPoint={endPoint}
+                  setRideState={setRideState}
                 />
               </Popup>
             </Marker>
@@ -182,9 +198,11 @@ const Map = ({ position }: { position: LatLngTuple }) => {
         </button>
       )}
       <BottomModal
-        rideState={startPoint ? 'atOrigin' : 'selectDest'}
+        rideState={rideState}
         startPoint={startPoint}
         endPoint={endPoint}
+        within20m={within20m}
+        setRideState={setRideState}
       />
     </div>
   )
