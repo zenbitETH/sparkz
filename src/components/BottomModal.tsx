@@ -78,8 +78,7 @@ export default function Modal({
       0,
     ]
   }
-  const rideEndTime = Math.floor(
-    rideStartTime + routeLength / BIKE_SPEED)
+  const rideEndTime = Math.floor(rideStartTime + routeLength / BIKE_SPEED)
 
   const payload = [
     startPointId,
@@ -89,17 +88,21 @@ export default function Modal({
     routeLength,
     routeLength,
   ]
-  
+
   const { config } = usePrepareContractWrite({
-    address: '',
+    address: '0xd66a0156935684bd2b1Cb6a2aBE9c6B1c26b94CA',
     abi: [],
     functionName: 'registerJourney',
     args: payload,
     chainId: 80001,
   })
 
-  const { data: contractWriteData, isLoading: isWriteLoading, isSuccess, write } = useContractWrite(config);
-
+  const {
+    data: contractWriteData,
+    isLoading: isWriteLoading,
+    isSuccess,
+    write,
+  } = useContractWrite(config)
 
   return (
     <div
