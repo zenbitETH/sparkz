@@ -1,6 +1,8 @@
-import { WorldIDWidget } from '@worldcoin/id'
+//import { WidgetProps } from "@worldcoin/id";
+//const WorldIDWidget = dynamic < WidgetProps > (() => import("@worldcoin/id").then((mod) => mod.WorldIDWidget), { ssr: false });
 
-export default function addPlace() {
+
+export default function newPlayer() {
     return (
         <div className="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-night-100 sm:items-center py-4 sm:pt-0 font-exo">
         <div className="card0 px-5 max-w-3xl ">
@@ -27,14 +29,15 @@ export default function addPlace() {
                         </select>
                   </div>
                 </div>    
-                <label className="text-white">Do you have a Worldcoin ID?</label>
+                <label className="text-white">Do you have a WorldID?</label>
                 {/*<WorldIDWidget
-                  actionId="wid_BPZsRJANxct2cZxVRyh80SFG" // obtain this from developer.worldcoin.org
-                  signal="my_signal"
+                  actionId="wid_staging_787c6e87256769d805c0892889048671" // obtain this from developer.worldcoin.org
+                  signal="0xb616e7cea54f5f96815899adeb32866ef5384107"
                   enableTelemetry
-                  onSuccess={(verificationResponse) => console.log(verificationResponse)} // you'll actually want to pass the proof to the API or your smart contract
+                  onSuccess={(proof) => console.log(proof)}
                   onError={(error) => console.error(error)}
-                />*/}
+                  debug={true} // to aid with debugging, remove in production
+                  />;*/}
                 
               </div>
             </form>
@@ -42,7 +45,7 @@ export default function addPlace() {
           </div>
           <div className="col-span-12 text-center mb-10">
             {/*onClick={() => tx(writeContracts.YourContract.registerUser(name, hometown, country))} */}
-            <div className="formBT">Mint Place NFT</div>
+            <div className="formBT">Start new game</div>
           </div>
         </div>
         </div>
