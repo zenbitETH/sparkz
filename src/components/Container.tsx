@@ -21,10 +21,10 @@ const InnerContainer = forwardRef<Ref, Props>(function InnerContainer(
 ) {
   return (
     <div
-      className={clsx('relative px-4 sm:px-8 lg:px-12')}
+      className={clsx('relative px-4 sm:px-8 lg:px-5')}
       {...props}
     >
-      <div className="mx-auto max-w-2xl lg:max-w-5xl">{props.children}</div>
+      <div className="mx-auto max-w-2xl lg:max-w-7xl">{props.children}</div>
     </div>
   )
 })

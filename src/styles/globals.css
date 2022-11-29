@@ -38,7 +38,7 @@
   grid
   h-auto
   grid-cols-12 grid-rows-6 
-  rounded-xl bg-gray-600 py-5 xl:my-0
+  rounded-xl py-5 xl:my-0
   xl:grid-rows-1;
 }
 

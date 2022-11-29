@@ -38,57 +38,50 @@ function Siwe() {
     useConnect()
   const { disconnect } = useDisconnect()
 
-  return (
-    <>
-       <div className='fixed inset-0 flex justify-center bg-black sm:px-8 font-exo'>
-        <div className='flex w-full max-w-7xl lg:px-8'>
-          <div className='w-full bg-white ring-1 ring-zinc-100 dark:bg-zinc-900 dark:ring-zinc-300/20' />
-        </div>
-      </div>
-      <div className='relative'>
-        <div className='mt-9'>
-          <Container>
-          <div className=''>
-              <div className='mt-20'>
-                <Image
-                  src={logo}
-                  alt=''
-                  sizes='(min-width: 640px)'
-                  className='object-cover'
-                />
-              </div>
-
-              <div className='font-exo text-center lg:text-4xl text-zinc-800 dark:text-zinc-100 text-xl'>
-                Play to burn calories on bicycle rides in San Francisco
-              </div>
-              <div className='mx-auto'>
+  return (  
+      <div className='h-full grid items-center inset-0 flex justify-center bg-gradient-to-br from-ugas-800  to-ugas-800 sm:px-8 font-exo'>
+      <div className='relative  '>
+        <Container>
+        <div className='grid xl:grid-cols-2 items-center h-screen'>
+            <div className=''>
+              <Image
+                src={logo}
+                alt=''
+                height={600}
+                className='mx-auto'
+              />
+            </div>
+            <div className='font-exo text-center lg:text-4xl text-white text-xl text-justify -mt-96 xl:mt-0 xl:leading-normal'>
+            <div>Gamified net-zero mobility that develops a web3 calorie market.</div>
+            <div className='mx-auto'>
               {isConnected ? (
-                <button className='rounded-full p-3 text-sm text-white'>
-                  <div>{shortHandAddress(address!)}</div>
-                  <XIcon onClick={disconnect} className='ml-1 mt-1 h-3 w-3' />
-                </button>
-              ) : (
-                <div className='mx-auto grid max-w-xs mt-10'>
-                <Button
-                  type='submit'
-                  className=''
-                  key={connectors[0]!.id}
-                  onClick={() => {
-                    connect({ connector: connectors[0] })
-                    router.replace('/')
-                  }}
-                >
-                  Connect Wallet
-                </Button>
-                </div>
-              )}
+              <button className='rounded-full p-3 text-sm text-white'>
+                <div>{shortHandAddress(address!)}</div>
+                <XIcon onClick={disconnect} className='ml-1 mt-1 h-3 w-3' />
+              </button>
+                ) : (
+                  <div className='mx-auto grid max-w-xs mt-10'>
+                    <Button
+                      className='rounded-full'
+                      key={connectors[0]!.id}
+                      onClick={() => {
+                        connect({ connector: connectors[0] })
+                        router.replace('/')
+                      }}
+                    >
+                      Connect Wallet
+                    </Button>
+                  </div>
+                )}
+              </div>
             </div>
-            </div>
-          </Container>
-        </div>
-        <Photos />
+          </div>
+          <div className='animate-bounce text-white text-center -mt-32 xl:-mt-10 text-2xl'>↓ More ↓</div>
+        </Container>
+        <div className='grid items-center text-center text-white h-screen'>hi</div>
       </div>
-    </>
+      </div>
+    
   )
 }
 const fs = require('fs')
@@ -110,30 +103,5 @@ function shortHandAddress(address: string) {
   return ''
 }
 
-function Photos() {
-  let rotations = ['rotate-2', '-rotate-2', 'rotate-2', 'rotate-2', '-rotate-2']
-
-  return (
-    <div className='mt-16 sm:mt-20'>
-      <div className='-my-4 flex justify-center gap-5 overflow-hidden py-4 sm:gap-8'>
-      {[image1, image2, image3].map((image, imageIndex) => (
-          <div
-            key={image.src}
-            className={clsx(
-              'relative aspect-[9/10] w-44 flex-none overflow-hidden rounded-xl bg-zinc-100 dark:bg-zinc-800 sm:w-72 sm:rounded-2xl',
-            )}
-          >
-            <Image
-              src={image}
-              alt=''
-              sizes='(min-width: 640px) 18rem, 11rem'
-              className='absolute inset-0 h-full w-full object-cover'
-            />
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
 
 export default Siwe
